@@ -1,0 +1,507 @@
+---
+swagger: '2.0'
+info:
+  version: v1
+  title: ''
+  description: "<h2>Delivery Service API</h2><p>Some calls require HTTPS and an Authorization
+    Key which will be provided by Just Eat.<p><p>The key needs to be provided in the
+    header as follows: <b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
+host: uk-deliveryserviceexternalapi.just-eat.co.uk:443
+schemes:
+- https
+x-tagGroups:
+  - name: Restaurant Management
+    tags:
+      - Restaurants
+  - name: Delivery
+    tags:
+      - Delivery
+paths:
+  "/orders/{id}/deliverystate/driverlocation":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: DriverLocation
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: deliveryDetails
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/orders/deliverystate/driverlocation":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: BulkDriverLocations
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: items
+        in: body
+        required: true
+        schema:
+          type: array
+          items:
+            "$ref": "#/definitions/BulkDeliveryDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/orders/{id}/deliverystate/driverassigned":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: DriverAssigned
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: deliveryDriverAssignedDetails
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryDriverAssignedDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/orders/{id}/deliverystate/atrestaurant":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: AtRestaurant
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: deliveryDetails
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/orders/{id}/deliverystate/onitsway":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: OnItsWay
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: onItsWayDetails
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/OnItsWayDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/orders/{id}/deliverystate/atdeliveryaddress":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: AtDeliveryAddress
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: deliveryDetails
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/orders/{id}/deliverystate/delivered":
+    put:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: Delivered
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: deliveryDetails
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryDetails"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+  "/Delivery/Estimate":
+    get:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: Delivery_Estimate
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: restaurantReference
+        in: query
+        required: true
+        type: string
+      - name: toLat
+        in: query
+        required: false
+        type: string
+      - name: toLon
+        in: query
+        required: false
+        type: string
+      - name: toPostcode
+        in: query
+        required: false
+        type: string
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/EstimatedDeliveryTime"
+      deprecated: false
+  "/Delivery/DeliverableRestaurants":
+    get:
+      tags:
+      - Delivery
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: Delivery_DeliverableRestaurants
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: toLat
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: toLon
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: toPostcode
+        in: query
+        required: false
+        type: string
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/DeliverableRestaurants"
+      deprecated: false
+  "/restaurants/{restaurantReference}/temporary-offline-status":
+    put:
+      tags:
+      - Restaurants
+      description: "- This method requires the use of an Authorization Key.\r\n"
+      operationId: UpdateRestaurantTemporaryOfflineStatus
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: restaurantReference
+        in: path
+        required: true
+        type: string
+      - name: temporaryOfflineStatus
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/PartnerRestaurantTemporaryOfflineStatus"
+      - name: Authorization
+        in: header
+        description: access token
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/Object"
+      deprecated: false
+definitions:
+  DeliveryDetails:
+    type: object
+    properties:
+      Location:
+        "$ref": "#/definitions/Location"
+      TimeStampWithUtcOffset:
+        format: date-time
+        type: string
+    example:
+      Location:
+        Latitude: 51.51641
+        Longitude: -0.103198
+      TimeStampWithUtcOffset: '2018-03-10T14:45:28.7537228+00:00'
+  Location:
+    type: object
+    properties:
+      Latitude:
+        format: double
+        type: number
+      Longitude:
+        format: double
+        type: number
+  Object:
+    type: object
+    properties: {}
+  BulkDeliveryDetails:
+    type: object
+    properties:
+      OrderId:
+        type: string
+      Location:
+        "$ref": "#/definitions/Location"
+      TimeStampWithUtcOffset:
+        format: date-time
+        type: string
+  DeliveryDriverAssignedDetails:
+    type: object
+    properties:
+      DriverName:
+        type: string
+      DriverContactNumber:
+        type: string
+      VehicleDetails:
+        "$ref": "#/definitions/VehicleDetails"
+      EstimatedArrivalTime:
+        format: date-time
+        type: string
+      Location:
+        "$ref": "#/definitions/Location"
+      TimeStampWithUtcOffset:
+        format: date-time
+        type: string
+  VehicleDetails:
+    type: object
+    properties:
+      Vehicle:
+        type: string
+      VehicleRegistration:
+        type: string
+  OnItsWayDetails:
+    type: object
+    properties:
+      EstimatedArrivalTime:
+        format: date-time
+        type: string
+      Location:
+        "$ref": "#/definitions/Location"
+      TimeStampWithUtcOffset:
+        format: date-time
+        type: string
+  DeliveryEstimatePosition:
+    required:
+    - RestaurantReference
+    type: object
+    properties:
+      RestaurantReference:
+        type: string
+      ToLat:
+        type: string
+      ToLon:
+        type: string
+      ToPostcode:
+        type: string
+  EstimatedDeliveryTime:
+    type: object
+    properties:
+      RestaurantReference:
+        type: string
+      DurationInMinutes:
+        type: string
+  DeliveryPosition:
+    type: object
+    properties:
+      ToLat:
+        format: double
+        type: number
+      ToLon:
+        format: double
+        type: number
+      ToPostcode:
+        type: string
+  DeliverableRestaurants:
+    type: object
+    properties:
+      DeliveryLocation:
+        "$ref": "#/definitions/DeliveryLocation"
+      Restaurants:
+        type: array
+        items:
+          "$ref": "#/definitions/DeliverableRestaurant"
+  DeliveryLocation:
+    type: object
+    properties:
+      Latitude:
+        format: double
+        type: number
+      Longitude:
+        format: double
+        type: number
+  DeliverableRestaurant:
+    type: object
+    properties:
+      Restaurant:
+        "$ref": "#/definitions/DeliveryableRestaurantLocationInfo"
+      DeliveryDistanceInMetres:
+        format: int32
+        type: integer
+      DeliveryDurationInSeconds:
+        format: int32
+        type: integer
+  DeliveryableRestaurantLocationInfo:
+    type: object
+    properties:
+      RestaurantReference:
+        type: string
+      RestaurantId:
+        type: string
+      Latitude:
+        format: double
+        type: number
+      Longitude:
+        format: double
+        type: number
+  HealthState:
+    type: object
+    properties:
+      Healthy:
+        type: boolean
+      Information:
+        type: string
+  PartnerRestaurantTemporaryOfflineStatus:
+    type: object
+    properties:
+      Status:
+        enum:
+        - TempOffline
+        - ClosedToday
+        - None
+        type: string
+      Message:
+        type: string
+    example:
+      Status: TempOffline
+      Message: Too busy
+  PartnerRestaurantOrderFlowRate:
+    type: object
+    properties:
+      FlowRate:
+        type: string
