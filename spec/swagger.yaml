@@ -9,6 +9,13 @@ info:
 host: uk-deliveryserviceexternalapi.just-eat.co.uk:443
 schemes:
 - https
+tags:
+  - name: Restaurants
+    description: |
+      TBC
+  - name: Delivery
+    description: |
+      TBC
 x-tagGroups:
   - name: Restaurant Management
     tags:
