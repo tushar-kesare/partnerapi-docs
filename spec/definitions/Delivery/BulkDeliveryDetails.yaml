@@ -1,9 +1,9 @@
 type: object
 properties:
-    OrderId:
+  OrderId:
     type: string
-    Location:
+  Location:
     "$ref": "#/definitions/Location"
-    TimeStampWithUtcOffset:
+  TimeStampWithUtcOffset:
     format: date-time
     type: string
