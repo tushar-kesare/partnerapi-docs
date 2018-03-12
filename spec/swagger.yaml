@@ -16,10 +16,3 @@ tags:
   - name: Delivery
     description: |
       TBC
-x-tagGroups:
-  - name: Restaurant Management
-    tags:
-      - Restaurants
-  - name: Delivery
-    tags:
-      - Delivery
