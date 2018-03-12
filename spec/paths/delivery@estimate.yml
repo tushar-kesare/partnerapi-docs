@@ -1,0 +1,37 @@
+get:
+  tags:
+  - Delivery
+  description: "- This method requires the use of an Authorization Key.\r\n"
+  operationId: Delivery_Estimate
+  consumes: []
+  produces:
+  - application/json
+  parameters:
+  - name: restaurantReference
+    in: query
+    required: true
+    type: string
+  - name: toLat
+    in: query
+    required: false
+    type: string
+  - name: toLon
+    in: query
+    required: false
+    type: string
+  - name: toPostcode
+    in: query
+    required: false
+    type: string
+  - name: Authorization
+    in: header
+    description: access token
+    required: true
+    type: string
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/EstimatedDeliveryTime"
+  deprecated: false
+

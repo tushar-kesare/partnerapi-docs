@@ -1,0 +1,16 @@
+type: object
+properties:
+  DriverName:
+    type: string
+  DriverContactNumber:
+    type: string
+  VehicleDetails:
+    "$ref": "#/definitions/VehicleDetails"
+  EstimatedArrivalTime:
+    format: date-time
+    type: string
+  Location:
+    "$ref": "#/definitions/Location"
+  TimeStampWithUtcOffset:
+    format: date-time
+    type: string

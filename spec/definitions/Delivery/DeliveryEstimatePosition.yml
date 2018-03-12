@@ -1,0 +1,12 @@
+required:
+- RestaurantReference
+type: object
+properties:
+  RestaurantReference:
+    type: string
+  ToLat:
+    type: string
+  ToLon:
+    type: string
+  ToPostcode:
+    type: string

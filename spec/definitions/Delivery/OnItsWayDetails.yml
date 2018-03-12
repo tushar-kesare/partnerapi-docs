@@ -1,0 +1,10 @@
+type: object
+properties:
+  EstimatedArrivalTime:
+    format: date-time
+    type: string
+  Location:
+    "$ref": "#/definitions/Location"
+  TimeStampWithUtcOffset:
+    format: date-time
+    type: string
