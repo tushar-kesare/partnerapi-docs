@@ -63,34 +63,34 @@ properties:
         type: string
       EmailAddress: 
         type: string
-    Payment:
-      type: object
-      properties:
-        PaymentLines:
-          type: array
-          items:
-            type: object
-            properties:
-              Type: 
-                type: string
-                enum: [Card]
-              CardFee: 
-                type: number
-                format: double
-              Value: 
-                type: number
-                format: double
-        Total: 
-          type: number
-          format: double
-        TotalComplementary: 
-          type: number
-          format: double
-        PaidDate: 
-          type: string
-          format: date-time
-        CashOnDelivery: 
-          type: boolean
+  Payment:
+    type: object
+    properties:
+      PaymentLines:
+        type: array
+        items:
+          type: object
+          properties:
+            Type: 
+              type: string
+              enum: [Card]
+            CardFee: 
+              type: number
+              format: double
+            Value: 
+              type: number
+              format: double
+      Total: 
+        type: number
+        format: double
+      TotalComplementary: 
+        type: number
+        format: double
+      PaidDate: 
+        type: string
+        format: date-time
+      CashOnDelivery: 
+        type: boolean
   Customer:
     type: object
     properties:
