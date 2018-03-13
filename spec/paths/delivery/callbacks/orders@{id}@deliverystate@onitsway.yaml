@@ -1,8 +1,8 @@
 put:
   tags:
-  - Delivery
+  - Delivery API
   description: "- This method requires the use of an Authorization Key.\r\n"
-  operationId: DriverAssigned
+  summary: Order on its way
   consumes:
   - application/json
   produces:
@@ -12,11 +12,11 @@ put:
     in: path
     required: true
     type: string
-  - name: deliveryDriverAssignedDetails
+  - name: onItsWayDetails
     in: body
     required: true
     schema:
-      "$ref": "#/definitions/DeliveryDriverAssignedDetails"
+      "$ref": "#/definitions/OnItsWayDetails"
   - name: Authorization
     in: header
     description: access token

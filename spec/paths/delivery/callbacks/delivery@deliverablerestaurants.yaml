@@ -1,24 +1,22 @@
 get:
   tags:
-  - Delivery
+  - Delivery API
+  summary: Get deliverable restaurants
   description: "- This method requires the use of an Authorization Key.\r\n"
-  operationId: Delivery_Estimate
   consumes: []
   produces:
   - application/json
   parameters:
-  - name: restaurantReference
-    in: query
-    required: true
-    type: string
   - name: toLat
     in: query
     required: false
-    type: string
+    type: number
+    format: double
   - name: toLon
     in: query
     required: false
-    type: string
+    type: number
+    format: double
   - name: toPostcode
     in: query
     required: false
@@ -32,6 +30,5 @@ get:
     '200':
       description: OK
       schema:
-        "$ref": "#/definitions/EstimatedDeliveryTime"
-  deprecated: false
-
+        "$ref": "#/definitions/DeliverableRestaurants"
+  deprecated: true

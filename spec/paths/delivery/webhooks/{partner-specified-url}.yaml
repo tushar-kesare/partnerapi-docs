@@ -1,0 +1,19 @@
+get:
+  tags:
+  - Delivery Webhooks
+  summary: Order requires delivery acceptance
+  description: ""
+  consumes: []
+  produces:
+  - application/json
+  parameters:
+  - name: connect-order
+    in: body
+    required: true
+    schema:
+      type: array
+      items:
+        "$ref": "#/definitions/connectorder"
+  responses:
+    '200':
+      description: OK

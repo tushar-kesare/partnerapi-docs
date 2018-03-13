@@ -10,9 +10,14 @@ host: uk-deliveryserviceexternalapi.just-eat.co.uk:443
 schemes:
 - https
 tags:
-  - name: Restaurants
-    description: |
-      TBC
+  - name: Restaurant API
+  - name: Delivery Webhooks
+  - name: Delivery API
+x-tagGroups:
   - name: Delivery
-    description: |
-      TBC
+    tags:
+      - Delivery Webhooks
+      - Delivery API
+  - name: Restaurants
+    tags:
+      - Restaurant API

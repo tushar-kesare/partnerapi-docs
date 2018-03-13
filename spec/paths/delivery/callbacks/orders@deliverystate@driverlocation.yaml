@@ -1,8 +1,8 @@
 put:
   tags:
-  - Delivery
+  - Delivery API
+  summary: Current driver location (bulk upload)
   description: "- This method requires the use of an Authorization Key.\r\n"
-  operationId: BulkDriverLocations
   consumes:
   - application/json
   produces:

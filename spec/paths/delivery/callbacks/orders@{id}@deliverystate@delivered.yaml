@@ -1,30 +1,30 @@
 put:
   tags:
-    - Restaurants
+  - Delivery API
+  summary: Order delivered
   description: "- This method requires the use of an Authorization Key.\r\n"
-  operationId: UpdateRestaurantTemporaryOfflineStatus
   consumes:
   - application/json
   produces:
   - application/json
   parameters:
-  - name: restaurantReference
+  - name: id
     in: path
     required: true
     type: string
-  - name: temporaryOfflineStatus
+  - name: deliveryDetails
     in: body
     required: true
     schema:
-      "$ref": "#/definitions/PartnerRestaurantTemporaryOfflineStatus"
+      "$ref": "#/definitions/DeliveryDetails"
   - name: Authorization
     in: header
     description: access token
     required: true
     type: string
   responses:
-  '200':
-    description: OK
-    schema:
+    '200':
+      description: OK
+      schema:
         "$ref": "#/definitions/Object"
   deprecated: false
