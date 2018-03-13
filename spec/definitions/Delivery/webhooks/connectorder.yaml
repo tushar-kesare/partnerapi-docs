@@ -198,108 +198,108 @@ properties:
                 CombinedPrice: 
                   type: number
                   format: double
-              MealParts: 
-                type: array
-                items:
-                  type: object
-                  properties: 
-                    MealPartId: 
-                      type: number
-                      format: int32
-                    GroupId: 
-                      type: number
-                      format: int32
-                    Name: 
-                      type: string
-                    Synonym: 
-                      type: string
-                    OptionalAccessories:
-                      type: array
-                      items:
-                        type: object
-                        properties: 
-                          OptionalAccessoryId: 
-                            type: number
-                            format: int32
-                          Quantity: 
-                            type: number
-                            format: int32
-                          UnitPrice: 
-                            type: number
-                            format: double
-                          Name: 
-                            type: string
-                    RequiredAccessories:
-                      type: array
-                      items:
-                        type: object
-                        properties: 
-                          RequiredAccessoryId : 
-                            type: number
-                            format: int32
-                          GroupId: 
-                            type: number
-                            format: int32
-                          UnitPrice: 
-                            type: number
-                            format: double
-                          Name: 
-                            type: string
-              OptionalAccessories:
-                type: array
-                items:
-                  type: object
-                  properties: 
-                    OptionalAccessoryId: 
-                      type: number
-                      format: int32
-                    Quantity: 
-                      type: number
-                      format: int32
-                    UnitPrice: 
-                      type: number
-                      format: double
-                    Name: 
-                      type: string
-              RequiredAccessories:
-                type: array
-                items:
-                  type: object
-                  properties: 
-                    RequiredAccessoryId : 
-                      type: number
-                      format: int32
-                    GroupId: 
-                      type: number
-                      format: int32
-                    UnitPrice: 
-                      type: number
-                      format: double
-                    Name: 
-                      type: string
-              Discounts: 
-                type: array
-                items:
-                  type: object
-                  properties: 
-                    Amount: 
-                      type: number
-                      format: double
-                    DiscountType: 
-                      type: string
-              MultiBuyDiscounts: 
-                type: array
-                items:
-                  type: object
-                  properties: 
-                    OrderItemId : 
-                      type: string
-                    Amount : 
-                      type: number
-                      format: double
-                    DiscountType: 
-                      type: string
-                    ProductTypeId : 
-                      type: number
-                      format: int32
+                MealParts: 
+                  type: array
+                  items:
+                    type: object
+                    properties: 
+                      MealPartId: 
+                        type: number
+                        format: int32
+                      GroupId: 
+                        type: number
+                        format: int32
+                      Name: 
+                        type: string
+                      Synonym: 
+                        type: string
+                      OptionalAccessories:
+                        type: array
+                        items:
+                          type: object
+                          properties: 
+                            OptionalAccessoryId: 
+                              type: number
+                              format: int32
+                            Quantity: 
+                              type: number
+                              format: int32
+                            UnitPrice: 
+                              type: number
+                              format: double
+                            Name: 
+                              type: string
+                      RequiredAccessories:
+                        type: array
+                        items:
+                          type: object
+                          properties: 
+                            RequiredAccessoryId : 
+                              type: number
+                              format: int32
+                            GroupId: 
+                              type: number
+                              format: int32
+                            UnitPrice: 
+                              type: number
+                              format: double
+                            Name: 
+                              type: string
+                OptionalAccessories:
+                  type: array
+                  items:
+                    type: object
+                    properties: 
+                      OptionalAccessoryId: 
+                        type: number
+                        format: int32
+                      Quantity: 
+                        type: number
+                        format: int32
+                      UnitPrice: 
+                        type: number
+                        format: double
+                      Name: 
+                        type: string
+                RequiredAccessories:
+                  type: array
+                  items:
+                    type: object
+                    properties: 
+                      RequiredAccessoryId : 
+                        type: number
+                        format: int32
+                      GroupId: 
+                        type: number
+                        format: int32
+                      UnitPrice: 
+                        type: number
+                        format: double
+                      Name: 
+                        type: string
+                Discounts: 
+                  type: array
+                  items:
+                    type: object
+                    properties: 
+                      Amount: 
+                        type: number
+                        format: double
+                      DiscountType: 
+                        type: string
+                MultiBuyDiscounts: 
+                  type: array
+                  items:
+                    type: object
+                    properties: 
+                      OrderItemId : 
+                        type: string
+                      Amount : 
+                        type: number
+                        format: double
+                      DiscountType: 
+                        type: string
+                      ProductTypeId : 
+                        type: number
+                        format: int32
 
