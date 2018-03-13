@@ -107,11 +107,11 @@ properties:
       Postcode: 
         type: string
       Longitude: 
-        format: int32
-        type: double
+        format: double
+        type: number
       Latitude: 
-        format: int32
-        type: double
+        format: double
+        type: number
       PhoneNumber: 
         type: string
       TimeZone: 
