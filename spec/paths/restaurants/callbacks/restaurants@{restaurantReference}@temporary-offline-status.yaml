@@ -23,8 +23,8 @@ put:
     required: true
     type: string
   responses:
-  '200':
-    description: OK
-    schema:
-        "$ref": "#/definitions/Object"
+    '200':
+      description: OK
+      schema:
+          "$ref": "#/definitions/Object"
   deprecated: false
