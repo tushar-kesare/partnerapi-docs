@@ -11,6 +11,7 @@ schemes:
 - https
 tags:
   - name: Restaurant API
+  - name: Restaurant Webhooks
   - name: Delivery Webhooks
   - name: Delivery API
 x-tagGroups:
@@ -21,3 +22,4 @@ x-tagGroups:
   - name: Restaurants
     tags:
       - Restaurant API
+      - Restaurant Webhooks

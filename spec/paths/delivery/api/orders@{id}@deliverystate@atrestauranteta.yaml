@@ -12,16 +12,18 @@ put:
     in: path
     required: true
     type: string
-  - name: estimatedAt
+  - name: details
     in: body
     required: true
-    type: string
-    format: date-time
-  - name: bestGuess
-    in: body
-    required: true
-    type: string
-    format: date-time
+    schema:
+      type: object
+      properties:
+        estimatedAt: 
+          type: string
+          format: date-time
+        bestGuess:
+          type: string
+          format: date-time
   - name: Authorization
     in: header
     description: access token

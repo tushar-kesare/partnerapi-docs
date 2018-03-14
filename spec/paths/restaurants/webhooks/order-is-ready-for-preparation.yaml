@@ -1,0 +1,19 @@
+get:
+  tags:
+  - Restaurant Webhooks
+  summary: Order is ready to be prepared
+  description: ""
+  consumes: []
+  produces:
+  - application/json
+  parameters:
+  - name: order-is-ready-for-preparation
+    in: body
+    required: true
+    schema:
+      "$ref": "#/definitions/order-is-ready-for-preparation"
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/object"
