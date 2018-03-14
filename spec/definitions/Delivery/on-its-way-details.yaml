@@ -1,9 +1,10 @@
 type: object
 properties:
-  OrderId:
+  EstimatedArrivalTime:
+    format: date-time
     type: string
   Location:
-    "$ref": "#/definitions/Location"
+    "$ref": "#/definitions/location"
   TimeStampWithUtcOffset:
     format: date-time
     type: string

@@ -5,12 +5,12 @@ properties:
   DriverContactNumber:
     type: string
   VehicleDetails:
-    "$ref": "#/definitions/VehicleDetails"
+    "$ref": "#/definitions/vehicle-details"
   EstimatedArrivalTime:
     format: date-time
     type: string
   Location:
-    "$ref": "#/definitions/Location"
+    "$ref": "#/definitions/location"
   TimeStampWithUtcOffset:
     format: date-time
     type: string

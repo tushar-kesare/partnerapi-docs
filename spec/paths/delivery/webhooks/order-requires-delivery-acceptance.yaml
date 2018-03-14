@@ -18,4 +18,4 @@ get:
     '200':
       description: OK
       schema:
-        "$ref": "#/definitions/Object"
+        "$ref": "#/definitions/object"

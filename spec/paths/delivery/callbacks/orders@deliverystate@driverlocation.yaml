@@ -14,7 +14,7 @@ put:
     schema:
       type: array
       items:
-        "$ref": "#/definitions/BulkDeliveryDetails"
+        "$ref": "#/definitions/bulk-delivery-details"
   - name: Authorization
     in: header
     description: access token
@@ -24,5 +24,5 @@ put:
     '200':
       description: OK
       schema:
-        "$ref": "#/definitions/Object"
+        "$ref": "#/definitions/object"
   deprecated: false

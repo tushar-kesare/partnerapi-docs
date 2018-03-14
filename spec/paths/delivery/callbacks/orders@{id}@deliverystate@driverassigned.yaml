@@ -16,7 +16,7 @@ put:
     in: body
     required: true
     schema:
-      "$ref": "#/definitions/DeliveryDriverAssignedDetails"
+      "$ref": "#/definitions/delivery-driver-assigned-details"
   - name: Authorization
     in: header
     description: access token
@@ -26,5 +26,5 @@ put:
     '200':
       description: OK
       schema:
-        "$ref": "#/definitions/Object"
+        "$ref": "#/definitions/object"
   deprecated: false

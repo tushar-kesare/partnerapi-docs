@@ -32,6 +32,6 @@ get:
     '200':
       description: OK
       schema:
-        "$ref": "#/definitions/EstimatedDeliveryTime"
+        "$ref": "#/definitions/estimated-delivery-time"
   deprecated: true
 

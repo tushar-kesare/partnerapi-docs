@@ -30,5 +30,5 @@ get:
     '200':
       description: OK
       schema:
-        "$ref": "#/definitions/DeliverableRestaurants"
+        "$ref": "#/definitions/deliverable-restaurants"
   deprecated: true

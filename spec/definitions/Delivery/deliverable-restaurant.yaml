@@ -1,7 +1,7 @@
 type: object
 properties:
   Restaurant:
-    "$ref": "#/definitions/DeliveryableRestaurantLocationInfo"
+    "$ref": "#/definitions/deliveryable-restaurant-location-info"
   DeliveryDistanceInMetres:
     format: int32
     type: integer
