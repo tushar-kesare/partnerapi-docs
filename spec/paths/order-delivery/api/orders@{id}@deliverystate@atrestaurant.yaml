@@ -1,7 +1,7 @@
 put:
   tags:
-  - Delivery API
-  summary: "Driver at delivery address"
+  - Order Delivery API
+  summary: Driver at restaurant
   description: "- This method requires the use of an Authorization Key.\r\n"
   consumes:
   - application/json

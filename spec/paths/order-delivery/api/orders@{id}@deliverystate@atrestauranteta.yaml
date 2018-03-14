@@ -1,8 +1,8 @@
 put:
   tags:
-  - Delivery API
+  - Order Delivery API
+  summary: "Driver at restaurant estimated time of arrival"
   description: "- This method requires the use of an Authorization Key.\r\n"
-  summary: Order on its way
   consumes:
   - application/json
   produces:
@@ -12,11 +12,18 @@ put:
     in: path
     required: true
     type: string
-  - name: onItsWayDetails
+  - name: details
     in: body
     required: true
     schema:
-      "$ref": "#/definitions/on-its-way-details"
+      type: object
+      properties:
+        estimatedAt: 
+          type: string
+          format: date-time
+        bestGuess:
+          type: string
+          format: date-time
   - name: Authorization
     in: header
     description: access token

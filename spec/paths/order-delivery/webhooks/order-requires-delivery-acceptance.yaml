@@ -1,6 +1,6 @@
 get:
   tags:
-  - Delivery Webhooks
+  - Order Delivery Webhooks
   summary: Order requires delivery acceptance
   description: ""
   consumes: []

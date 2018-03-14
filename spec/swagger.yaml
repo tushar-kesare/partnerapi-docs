@@ -12,13 +12,13 @@ schemes:
 tags:
   - name: Restaurant API
   - name: Restaurant Webhooks
-  - name: Delivery Webhooks
-  - name: Delivery API
+  - name: Order Delivery Webhooks
+  - name: Order Delivery API
 x-tagGroups:
-  - name: Delivery
+  - name: Order Delivery
     tags:
-      - Delivery Webhooks
-      - Delivery API
+      - Order Delivery Webhooks
+      - Order Delivery API
   - name: Restaurants
     tags:
       - Restaurant API

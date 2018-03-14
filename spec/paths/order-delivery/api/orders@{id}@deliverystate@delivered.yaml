@@ -1,7 +1,7 @@
 put:
   tags:
-  - Delivery API
-  summary: Driver assigned to order
+  - Order Delivery API
+  summary: Order delivered
   description: "- This method requires the use of an Authorization Key.\r\n"
   consumes:
   - application/json
@@ -12,11 +12,11 @@ put:
     in: path
     required: true
     type: string
-  - name: deliveryDriverAssignedDetails
+  - name: deliveryDetails
     in: body
     required: true
     schema:
-      "$ref": "#/definitions/delivery-driver-assigned-details"
+      "$ref": "#/definitions/delivery-details"
   - name: Authorization
     in: header
     description: access token

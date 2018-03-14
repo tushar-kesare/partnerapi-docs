@@ -1,29 +1,20 @@
 put:
   tags:
-  - Delivery API
-  summary: "Driver at restaurant estimated time of arrival"
+  - Order Delivery API
+  summary: Current driver location (bulk upload)
   description: "- This method requires the use of an Authorization Key.\r\n"
   consumes:
   - application/json
   produces:
   - application/json
   parameters:
-  - name: id
-    in: path
-    required: true
-    type: string
-  - name: details
+  - name: items
     in: body
     required: true
     schema:
-      type: object
-      properties:
-        estimatedAt: 
-          type: string
-          format: date-time
-        bestGuess:
-          type: string
-          format: date-time
+      type: array
+      items:
+        "$ref": "#/definitions/bulk-delivery-details"
   - name: Authorization
     in: header
     description: access token
