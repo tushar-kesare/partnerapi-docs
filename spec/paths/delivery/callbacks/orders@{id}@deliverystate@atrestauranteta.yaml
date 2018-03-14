@@ -1,0 +1,35 @@
+put:
+  tags:
+  - Delivery API
+  summary: "Driver at restaurant estimated time of arrival"
+  description: "- This method requires the use of an Authorization Key.\r\n"
+  consumes:
+  - application/json
+  produces:
+  - application/json
+  parameters:
+  - name: id
+    in: path
+    required: true
+    type: string
+  - name: estimatedAt
+    in: body
+    required: true
+    type: string
+    format: date-time
+  - name: bestGuess
+    in: body
+    required: true
+    type: string
+    format: date-time
+  - name: Authorization
+    in: header
+    description: access token
+    required: true
+    type: string
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/Object"
+  deprecated: false
