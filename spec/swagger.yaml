@@ -13,11 +13,13 @@ tags:
   - name: Restaurant API
   - name: Restaurant Webhooks
   - name: Order Delivery Webhooks
+  - name: Order Status API
   - name: Order Delivery API
 x-tagGroups:
   - name: Order Delivery
     tags:
       - Order Delivery Webhooks
+      - Order Status API
       - Order Delivery API
   - name: Restaurants
     tags:
