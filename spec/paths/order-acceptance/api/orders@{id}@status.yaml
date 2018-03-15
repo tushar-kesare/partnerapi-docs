@@ -1,12 +1,7 @@
 put:
   tags:
-  - Order Status API
+  - Order Acceptance API
   summary: "Set Order status"
-  description: "- This method requires the use of an Authorization Key.\r\n"
-  consumes:
-  - application/json
-  produces:
-  - application/json
   parameters:
   - name: id
     in: path
@@ -21,11 +16,6 @@ put:
     required: true
     schema:
       "$ref": "#/definitions/order-status-request"
-  - name: Authorization
-    in: header
-    description: access token
-    required: true
-    type: string
   responses:
     '200':
       description: OK
