@@ -1,5 +1,5 @@
 # partner OpenAPI Specification
-[![Build Status](https://travis-ci.org/justeat/parterapi-docs.svg?branch=master)](https://travis-ci.org/justeat/parterapi-docs)
+[![Build Status](https://travis-ci.org/justeat/partnerapi-docs.svg?branch=master)](https://travis-ci.org/justeat/partnerapi-docs)
 
 ## Steps to finish
 
