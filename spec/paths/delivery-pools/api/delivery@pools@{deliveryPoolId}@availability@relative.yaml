@@ -1,0 +1,54 @@
+parameters:
+  - name: deliveryPoolId
+    in: path
+    required: true
+    description: Identifier for the pool	
+    type: string
+get:
+  tags:
+  - Delivery Pools API
+  summary: Get availability for pickup
+  description: Get the current amount of time it will take a driver to collect a new order from a restaurant in the pool.
+  responses:
+    '200':
+      description: OK
+      schema:
+        type: object
+        properties:
+          bestGuess: 
+            type: string
+            description: Your best estimation (hh:mm:ss)
+      examples:
+        application/json:
+          bestGuess: 00:35:00
+    '404':
+      description: The pool could not be found
+      schema:
+        "$ref": "#/definitions/object"
+put:
+  tags:
+  - Delivery Pools API
+  summary: Set availability for pickup
+  description: Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool.
+  parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        bestGuess: 
+          type: string
+          description: Your best estimation (hh:mm:ss)
+      example:
+        application/json:
+          bestGuess: 00:35:00
+  responses:
+    '202':
+      description: Update will take effect shortly
+      schema:
+        "$ref": "#/definitions/object"
+    '404':
+      description: The pool could not be found
+      schema:
+        "$ref": "#/definitions/object"
