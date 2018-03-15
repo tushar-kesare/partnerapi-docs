@@ -3,7 +3,7 @@ swagger: '2.0'
 info:
   version: v1
   title: ''
-host: uk-deliveryserviceexternalapi.just-eat.co.uk:443
+host: partnerapiurl
 schemes:
 - https
 securityDefinitions:
