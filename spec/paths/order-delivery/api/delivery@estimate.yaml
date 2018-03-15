@@ -2,10 +2,6 @@ get:
   tags:
   - Order Delivery API
   summary: Get delivery estimate
-  description: "- This method requires the use of an Authorization Key.\r\n"
-  consumes: []
-  produces:
-  - application/json
   parameters:
   - name: restaurantReference
     in: query
@@ -23,15 +19,9 @@ get:
     in: query
     required: false
     type: string
-  - name: Authorization
-    in: header
-    description: access token
-    required: true
-    type: string
   responses:
     '200':
       description: OK
       schema:
         "$ref": "#/definitions/estimated-delivery-time"
   deprecated: true
-

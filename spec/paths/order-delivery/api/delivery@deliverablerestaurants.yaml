@@ -2,10 +2,6 @@ get:
   tags:
   - Order Delivery API
   summary: Get deliverable restaurants
-  description: "- This method requires the use of an Authorization Key.\r\n"
-  consumes: []
-  produces:
-  - application/json
   parameters:
   - name: toLat
     in: query
@@ -20,11 +16,6 @@ get:
   - name: toPostcode
     in: query
     required: false
-    type: string
-  - name: Authorization
-    in: header
-    description: access token
-    required: true
     type: string
   responses:
     '200':

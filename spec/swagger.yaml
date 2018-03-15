@@ -3,19 +3,34 @@ swagger: '2.0'
 info:
   version: v1
   title: ''
-  description: "<h2>Delivery Service API</h2><p>Some calls require HTTPS and an Authorization
-    Key which will be provided by Just Eat.<p><p>The key needs to be provided in the
-    header as follows: <b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
 host: uk-deliveryserviceexternalapi.just-eat.co.uk:443
 schemes:
 - https
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: "<p>All calls require HTTPS and an Authorization
+    Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
+    header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
+security:
+  - api_key: []
+consumes:
+  - application/json
+produces:
+- application/json
 tags:
   - name: Restaurant API
   - name: Restaurant Webhooks
   - name: Order Delivery Webhooks
   - name: Order Status API
   - name: Order Delivery API
+  - name: Delivery Pools API
 x-tagGroups:
+  - name: Delivery Pools
+    tags:
+      - Delivery Pools API
   - name: Order Delivery
     tags:
       - Order Delivery Webhooks
