@@ -1,7 +1,7 @@
 get:
   tags:
   - Delivery Pools API
-  summary: Get delivery pools
+  summary: Get your delivery pools
   description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
   responses:
     '200':
@@ -32,4 +32,33 @@ get:
             name: Toronto - East
             restaurants:
             - 789
-          
+post:
+  tags:
+  - Delivery Pools API
+  summary: Create a new delivery pool
+  description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
+  parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: The name of the pool, used by operations teams, in reports, etc.
+        restaurantIds:
+          description: An array of JUST EAT restaurant ids served by the pool.  
+          type: array
+          items:
+            type: number
+            format: int32
+  responses:
+    '201':
+      description: Pool has been created.
+      schema:
+        "$ref": "#/definitions/object"
+    '400':
+      description: There was something invalid in your request - check response body for details
+      schema:
+        "$ref": "#/definitions/object"

@@ -3,7 +3,7 @@ put:
   - Order Delivery API
   summary: Driver assigned to order
   parameters:
-  - name: id
+  - name: orderId
     in: path
     required: true
     type: string

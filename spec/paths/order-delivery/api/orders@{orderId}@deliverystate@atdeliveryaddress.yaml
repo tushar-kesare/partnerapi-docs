@@ -1,9 +1,9 @@
 put:
   tags:
   - Order Delivery API
-  summary: Order delivered
+  summary: "Driver at delivery address"
   parameters:
-  - name: id
+  - name: orderId
     in: path
     required: true
     type: string

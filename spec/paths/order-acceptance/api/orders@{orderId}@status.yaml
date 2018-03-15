@@ -3,7 +3,7 @@ put:
   - Order Acceptance API
   summary: "Set Order status"
   parameters:
-  - name: id
+  - name: orderId
     in: path
     required: true
     type: string

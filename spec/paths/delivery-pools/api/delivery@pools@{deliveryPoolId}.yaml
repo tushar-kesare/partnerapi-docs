@@ -1,0 +1,93 @@
+parameters:
+- name: deliveryPoolId
+  in: path
+  required: true
+  description: Identifier for the pool	
+  type: string
+get:
+  tags:
+  - Delivery Pools API
+  summary: Get an individual delivery pool
+  description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
+  responses:
+    '200':
+      description: OK
+      schema:
+        type: object
+        properties:
+          name: 
+            type: string
+            description: The name of the pool, used by operations teams, in reports, etc.
+          restaurants:
+            description: An array of JUST EAT restaurant ids served by the pool.  
+            type: array
+            items:
+              type: number
+              format: int32
+      examples:
+        application/json:
+          name: Toronto - West
+          restaurants:
+          - 123
+          - 456
+    '404':
+      description: The pool could not be found
+      schema:
+        "$ref": "#/definitions/object"
+delete:
+  tags:
+  - Delivery Pools API
+  summary: Delete a delivery pool
+  description: The restaurants will no longer be associated with the pool.
+  responses:
+    '200':
+      description: Pool deleted
+      schema:
+        "$ref": "#/definitions/object"
+    '404':
+      description: The pool could not be found
+      schema:
+        "$ref": "#/definitions/object"
+patch:
+  tags:
+  - Delivery Pools API
+  summary: Modify a delivery pool
+  description: Modify a delivery pool, changing its name, restaurants or both
+  parameters:
+  - name: body
+    in: body
+    required: true
+    description: "Request body should contain an object with either or 
+      both of the properties. If a property is not specified then the 
+      existing values are retained."
+    schema:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: The name of the pool, used by operations teams, in reports, etc.
+        restaurantIds:
+          description: An array of JUST EAT restaurant ids served by the pool.  
+          type: array
+          items:
+            type: number
+            format: int32
+      example:
+        application/json:
+          name: Toronto - West
+          restaurants:
+          - 123
+          - 456
+  responses:
+    '200':
+      description: Pool has been updated
+      schema:
+        "$ref": "#/definitions/object"
+    '400':
+      description: There was something invalid in your request - check response body for details
+      schema:
+        "$ref": "#/definitions/object"
+    '404':
+      description: The pool could not be found
+      schema:
+        "$ref": "#/definitions/object"

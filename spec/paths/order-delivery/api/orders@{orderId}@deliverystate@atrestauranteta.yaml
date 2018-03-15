@@ -3,7 +3,7 @@ put:
   - Order Delivery API
   summary: "Driver at restaurant estimated time of arrival"
   parameters:
-  - name: id
+  - name: orderId
     in: path
     required: true
     type: string

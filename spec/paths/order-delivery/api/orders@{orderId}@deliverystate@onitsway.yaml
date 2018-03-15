@@ -1,17 +1,17 @@
 put:
   tags:
   - Order Delivery API
-  summary: "Driver at delivery address"
+  summary: Order on its way
   parameters:
-  - name: id
+  - name: orderId
     in: path
     required: true
     type: string
-  - name: deliveryDetails
+  - name: onItsWayDetails
     in: body
     required: true
     schema:
-      "$ref": "#/definitions/delivery-details"
+      "$ref": "#/definitions/on-its-way-details"
   responses:
     '200':
       description: OK
