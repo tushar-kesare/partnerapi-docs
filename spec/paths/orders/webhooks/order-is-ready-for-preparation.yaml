@@ -1,4 +1,4 @@
-get:
+post:
   tags:
   - Order Webhooks
   summary: Order is ready to be prepared
