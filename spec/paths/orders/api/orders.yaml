@@ -1,6 +1,6 @@
 post:
   tags:
-  - Order API
+  - order-api
   summary: "Create order"
   parameters:
   - name: orderRequest
@@ -13,4 +13,3 @@ post:
       description: Created
       schema:
         "$ref": "#/definitions/object"
-  deprecated: false

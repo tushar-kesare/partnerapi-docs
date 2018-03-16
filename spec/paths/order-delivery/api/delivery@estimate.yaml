@@ -1,6 +1,6 @@
 get:
   tags:
-  - Order Delivery API
+  - order-delivery-api
   summary: Get delivery estimate
   parameters:
   - name: restaurantReference

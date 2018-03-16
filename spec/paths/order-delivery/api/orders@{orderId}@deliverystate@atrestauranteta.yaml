@@ -1,6 +1,6 @@
 put:
   tags:
-  - Order Delivery API
+  - order-delivery-api
   summary: "Driver at restaurant estimated time of arrival"
   parameters:
   - name: orderId

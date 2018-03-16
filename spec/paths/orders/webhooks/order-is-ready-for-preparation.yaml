@@ -1,11 +1,8 @@
 post:
   tags:
-  - Order Webhooks
+  - order-webhooks
   summary: Order is ready to be prepared
   description: ""
-  consumes: []
-  produces:
-  - application/json
   parameters:
   - name: order-is-ready-for-preparation
     in: body
@@ -13,7 +10,7 @@ post:
     schema:
       "$ref": "#/definitions/order-is-ready-for-preparation"
   responses:
-    '200':
-      description: OK
+    '201':
+      description: In the event of successful receipt of an Order, a 201 status code should be returned, indicating acknowledgement of transmission success.
       schema:
         "$ref": "#/definitions/object"

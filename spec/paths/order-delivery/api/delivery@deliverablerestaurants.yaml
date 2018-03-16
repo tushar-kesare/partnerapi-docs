@@ -1,6 +1,6 @@
 get:
   tags:
-  - Order Delivery API
+  - order-delivery-api
   summary: Get deliverable restaurants
   parameters:
   - name: toLat

@@ -6,7 +6,7 @@ parameters:
   type: string
 get:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Get an individual delivery pool
   description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
   responses:

@@ -1,6 +1,6 @@
 put:
   tags:
-  - Order Acceptance API
+  - order-acceptance-api
   summary: "Set Order status"
   parameters:
   - name: orderId
