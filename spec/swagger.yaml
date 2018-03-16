@@ -22,10 +22,10 @@ produces:
 - application/json
 tags:
   - name: Restaurant API
-  - name: Restaurant Webhooks
   - name: Order Delivery Webhooks
   - name: Order Acceptance API
   - name: Order API
+  - name: Order Webhooks
   - name: Order Delivery API
   - name: Delivery Pools API
 x-tagGroups:
@@ -38,6 +38,7 @@ x-tagGroups:
   - name: Orders
     tags: 
       - Order API
+      - Order Webhooks
   - name: Order Delivery
     tags:
       - Order Delivery Webhooks
@@ -45,4 +46,3 @@ x-tagGroups:
   - name: Restaurants
     tags:
       - Restaurant API
-      - Restaurant Webhooks

@@ -1,6 +1,6 @@
-get:
+post:
   tags:
-  - Restaurant Webhooks
+  - Order Webhooks
   summary: Order is ready to be prepared
   description: ""
   consumes: []
