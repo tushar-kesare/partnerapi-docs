@@ -1,6 +1,6 @@
 put:
   tags:
-  - Order Delivery API
+  - order-delivery-api
   summary: Driver assigned to order
   parameters:
   - name: orderId

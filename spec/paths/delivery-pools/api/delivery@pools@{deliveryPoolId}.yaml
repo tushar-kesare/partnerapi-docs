@@ -6,7 +6,7 @@ parameters:
   type: string
 get:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Get an individual delivery pool
   description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
   responses:
@@ -36,7 +36,7 @@ get:
         "$ref": "#/definitions/object"
 delete:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Delete a delivery pool
   description: The restaurants will no longer be associated with the pool.
   responses:
@@ -50,7 +50,7 @@ delete:
         "$ref": "#/definitions/object"
 patch:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Modify a delivery pool
   description: Modify a delivery pool, changing its name, restaurants or both
   parameters:

@@ -1,6 +1,6 @@
 put:
   tags:
-  - Order Delivery API
+  - order-delivery-api
   summary: Current driver location
   parameters:
   - name: orderId

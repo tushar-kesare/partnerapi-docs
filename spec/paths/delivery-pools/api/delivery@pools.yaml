@@ -1,6 +1,6 @@
 get:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Get your delivery pools
   description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
   responses:
@@ -34,7 +34,7 @@ get:
             - 789
 post:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Create a new delivery pool
   description: A delivery pool is a named group of drivers which deliver food for a set of restaurants.
   parameters:

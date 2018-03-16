@@ -21,28 +21,35 @@ consumes:
 produces:
 - application/json
 tags:
-  - name: Restaurant API
-  - name: Order Delivery Webhooks
-  - name: Order Acceptance API
-  - name: Order API
-  - name: Order Webhooks
-  - name: Order Delivery API
-  - name: Delivery Pools API
+  - name: restaurant-api
+    x-displayName: Restaurant API
+  - name: order-delivery-webhooks
+    x-displayName: Order Delivery Webhooks
+  - name: order-acceptance-api
+    x-displayName: Order Acceptance API
+  - name: order-api
+    x-displayName: Order API
+  - name: order-webhooks
+    x-displayName: Order Webhooks
+  - name: order-delivery-api
+    x-displayName: Order Delivery API
+  - name: delivery-pools-api
+    x-displayName: Delivery Pools API
 x-tagGroups:
   - name: Delivery Pools
     tags:
-      - Delivery Pools API
+      - delivery-pools-api
   - name: Order Acceptance
     tags: 
-      - Order Acceptance API
+      - order-acceptance-api
   - name: Orders
     tags: 
-      - Order API
-      - Order Webhooks
+      - order-api
+      - order-webhooks
   - name: Order Delivery
     tags:
-      - Order Delivery Webhooks
-      - Order Delivery API
+      - order-delivery-webhooks
+      - order-delivery-api
   - name: Restaurants
     tags:
-      - Restaurant API
+      - restaurant-api
