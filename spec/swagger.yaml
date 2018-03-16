@@ -25,7 +25,7 @@ tags:
   - name: Restaurant Webhooks
   - name: Order Delivery Webhooks
   - name: Order Acceptance API
-  - name: Order Creation API
+  - name: Order API
   - name: Order Delivery API
   - name: Delivery Pools API
 x-tagGroups:
@@ -35,9 +35,9 @@ x-tagGroups:
   - name: Order Acceptance
     tags: 
       - Order Acceptance API
-  - name: Order Creation
+  - name: Orders
     tags: 
-      - Order Creation API
+      - Order API
   - name: Order Delivery
     tags:
       - Order Delivery Webhooks
