@@ -1,0 +1,16 @@
+post:
+  tags:
+  - Order Creation API
+  summary: "Create order"
+  parameters:
+  - name: orderRequest
+    in: body
+    required: true
+    schema:
+      "$ref": "#/definitions/order-request"
+  responses:
+    '201':
+      description: Created
+      schema:
+        "$ref": "#/definitions/object"
+  deprecated: false
