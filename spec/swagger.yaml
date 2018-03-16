@@ -23,7 +23,7 @@ produces:
 tags:
   - name: restaurant-api
     x-displayName: Restaurant API
-  - name: order-delivery-webhook
+  - name: order-delivery-webhooks
     x-displayName: Order Delivery Webhooks
   - name: order-acceptance-api
     x-displayName: Order Acceptance API

@@ -27,7 +27,7 @@ get:
         "$ref": "#/definitions/object"
 put:
   tags:
-  - Delivery Pools API
+  - delivery-pools-api
   summary: Set availability for pickup
   description: Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool.
   parameters:
