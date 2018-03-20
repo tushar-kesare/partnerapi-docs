@@ -21,7 +21,8 @@ post:
             properties:
               id:
                 type: number
-                format: int32
+                format: integer
+                description: The JUST EAT restaurant id
               name:
                 type: string
               firstLine:
