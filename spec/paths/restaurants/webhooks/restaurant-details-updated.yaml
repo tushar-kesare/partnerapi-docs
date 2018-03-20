@@ -1,7 +1,7 @@
 post:
   tags:
   - restaurant-webhooks
-  summary: Restaurant Updated
+  summary: Restaurant Details Updated
   description: ""
   parameters:
   - name: restaurant-updated
