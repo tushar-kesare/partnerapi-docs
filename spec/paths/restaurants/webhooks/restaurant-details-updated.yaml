@@ -1,0 +1,45 @@
+post:
+  tags:
+  - restaurant-webhooks
+  summary: Restaurant Updated
+  description: ""
+  parameters:
+  - name: restaurant-updated
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        event:
+          type: string
+          format: enum
+          enum: [RestaurantUpdated]
+        restaurants:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                format: int32
+              name:
+                type: string
+              firstLine:
+                type: string
+              city:
+                type: string
+              postcode:
+                type: string
+              latitude:
+                type: number
+                format: float
+                required: false
+              longitude:
+                type: number
+                format: float
+                required: false
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/object"

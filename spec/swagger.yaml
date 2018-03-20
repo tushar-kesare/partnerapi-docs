@@ -22,6 +22,8 @@ produces:
 - application/json
 tags:
   - name: restaurant-api
+    x-displayName: Restaurant Webhooks
+  - name: restaurant-api
     x-displayName: Restaurant API
   - name: order-delivery-webhooks
     x-displayName: Order Delivery Webhooks
@@ -53,3 +55,4 @@ x-tagGroups:
   - name: Restaurants
     tags:
       - restaurant-api
+      - restaurant-webhooks
