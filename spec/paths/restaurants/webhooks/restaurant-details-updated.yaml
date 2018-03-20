@@ -34,11 +34,9 @@ post:
               latitude:
                 type: number
                 format: float
-                required: false
               longitude:
                 type: number
                 format: float
-                required: false
   responses:
     '200':
       description: OK
