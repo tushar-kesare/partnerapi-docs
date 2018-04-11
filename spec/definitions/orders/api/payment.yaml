@@ -17,3 +17,7 @@ properties:
   CardCharges:
     format: money
     type: number
+  Fees:
+    type: array
+    items: 
+      "$ref": "#/definitions/fee"
