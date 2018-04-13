@@ -22,4 +22,3 @@ get:
       description: OK
       schema:
         "$ref": "#/definitions/deliverable-restaurants"
-  deprecated: true

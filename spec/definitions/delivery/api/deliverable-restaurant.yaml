@@ -8,3 +8,6 @@ properties:
   DeliveryDurationInSeconds:
     format: int32
     type: integer
+  EstimatedWaitForDeliveryPickupInSeconds:
+    format: int32
+    type: integer
