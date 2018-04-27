@@ -11,8 +11,6 @@ put:
     in: body
     required: true
     schema:
-      type: array
-      items:
         "$ref": "#/definitions/driver-status"
   responses:
     '200':
