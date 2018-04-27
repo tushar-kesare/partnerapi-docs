@@ -1,0 +1,19 @@
+put:
+  tags:
+  - order-delivery-webhooks
+  summary: Driver at delivery address
+  description: ""
+  consumes: []
+  produces:
+  - application/json
+  parameters:
+  - name: driver-status
+    in: body
+    required: true
+    schema:
+        "$ref": "#/definitions/driver-status"
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/object"
