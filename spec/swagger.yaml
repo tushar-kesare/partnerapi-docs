@@ -15,7 +15,7 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
-    description: "<p>All api calls an Authorization
+    description: "<p>All api calls require an Authorization
     Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
     header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
 security:
