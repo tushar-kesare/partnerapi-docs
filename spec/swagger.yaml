@@ -18,6 +18,46 @@ info:
   Content-Length: 1000<br/>
   Content-Type: application/json<br/>
   Authorization: JE-API-KEY abcd123456789
+  
+  ## Data Formats
+
+  ### Date and time formats
+
+  All dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).
+
+
+  Times recorded by Just Eat are either stored in:<br/>
+  - UTC time standard with no offset; OR<br/>
+  - Local time with an accompanying offset to UTC time
+
+
+  All properties ending with \"WithUtcOffset\" contain local time along with an offset to UTC time.
+
+
+  For instance:
+
+  
+  **DueDateWithUtcOffset**: \"2015-05-26T14:52:35.5444292+01:00\"<br/>
+  Local time: 14:52<br /> 
+  UTC time: 13:52<br /> 
+  UTC offset: +1hr (due to daylight time saving)
+
+
+  **DueDateWithUtcOffset**: \"2015-02-03T11:10:00.0000000+00:00\"<br />
+  Local time: 11:10<br />
+  UTC time: 11:10<br />
+  UTC offset: 0 (no daylight time saving, local time is equivalent to UTC)
+
+
+  Note that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).
+
+
+  ### Callback timestamps
+
+  Ideally, timestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.  
+  
+  
+  If it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.
   "
 host: partnerapiurl
 schemes:
