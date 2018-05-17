@@ -6,32 +6,35 @@ get:
   responses:
     '200':
       description: OK
-      schema:
-        type: object
-        properties:
-          delivery-pool-id: 
-            type: object
-            properties: 
-              name: 
-                type: string
-                description: The name of the pool, used by operations teams, in reports, etc.
-              restaurants:
-                description: An array of JUST EAT restaurant ids served by the pool.  
-                type: array
-                items:
-                  type: number
-                  format: int32
-      examples:
+      content:
         application/json:
-          d5f72466a6dd49a08166d5a044c5b9e4:
-            name: Toronto - West
-            restaurants:
-            - 123
-            - 456
-          b9c6673b8e5948b98cfbd14a982de2c2:
-            name: Toronto - East
-            restaurants:
-            - 789
+          schema:
+            type: object
+            properties:
+              delivery-pool-id: 
+                type: object
+                properties: 
+                  name: 
+                    type: string
+                    description: The name of the pool, used by operations teams, in reports, etc.
+                  restaurants:
+                    description: An array of JUST EAT restaurant ids served by the pool.  
+                    type: array
+                    items:
+                      type: number
+                      format: int32
+          examples:
+            response:
+              value:
+                d5f72466a6dd49a08166d5a044c5b9e4:
+                  name: Toronto - West
+                  restaurants:
+                  - 123
+                  - 456
+                b9c6673b8e5948b98cfbd14a982de2c2:
+                  name: Toronto - East
+                  restaurants:
+                  - 789
 post:
   tags:
   - delivery-pools-api
