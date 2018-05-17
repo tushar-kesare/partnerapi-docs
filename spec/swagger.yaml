@@ -3,19 +3,23 @@ swagger: '2.0'
 info:
   version: v1
   title: ''
+  description: "<h1>Security</h1>
+  <h2>HTTPS</h2>
+  <p>All api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and 
+  be accesible via the standard SSL port (port 443).</p>"
 host: partnerapiurl
 schemes:
 - https
 securityDefinitions:
-  api_key:
+  API Key:
     type: apiKey
     name: Authorization
     in: header
-    description: "<p>All calls require HTTPS and an Authorization
+    description: "<p>All api calls an Authorization
     Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
     header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
 security:
-  - api_key: []
+  - API Key: []
 consumes:
   - application/json
 produces:
