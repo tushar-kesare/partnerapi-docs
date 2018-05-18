@@ -2,9 +2,14 @@
 openapi: 3.0.0
 servers:
   - url: 'https://partnerapiurl/'
+externalDocs:
+  description: JUST EAT Developer Contextual Documentation
+  url: 'https://developers.justeat.com'
 info:
   version: v1
   title: 'JUST EAT Partner API Docs'
+  x-logo:
+    url: "https://raw.githubusercontent.com/justeat/partnerapi-docs/master/web/logo-just-eat.png"
   description: "# Getting Started
   
   ## Security
