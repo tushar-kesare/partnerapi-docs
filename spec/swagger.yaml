@@ -1,6 +1,10 @@
 swagger: '2.0'
-version: v1
 info:
+  title: JustEat
+  version: 1.0.0
+  x-logo:
+    url: 'https://avatars1.githubusercontent.com/u/1516790?s=100&v=4'
+  x-providerName: justeat.com
   description:  |
     # Getting Started
     ## Security
@@ -54,13 +58,6 @@ info:
 
     If it is not possible to record timestamps in local time, timestamps may
     be recorded in UTC time with a 00:00 offset.
-  title: JustEat
-  version: 1.0.0
-  x-logo:
-    url: 'https://avatars1.githubusercontent.com/u/1516790?s=100&v=4'
-  x-preferred: true
-  x-providerName: justeat.com
-  x-unofficialSpec: true
 externalDocs:
   description: JustEat Developer Contextual Documentation
   url: 'https://developers.justeat.com'
@@ -68,54 +65,53 @@ host: partnerapiurl
 schemes:
 - https
 securityDefinitions:
-API Key:
-  type: apiKey
-  name: Authorization
-  in: header
-  description: >-
-    <p>All api calls require an Authorization Key which will be provided by
-    JUST EAT.<p><p>The key needs to be provided in the header as follows:
-    </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is
-    case sensitive.
+  API Key:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: "<p>All api calls require an Authorization
+    Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
+    header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is
+    case sensitive."
 security:
-- API Key: []
+  - API Key: []
 consumes:
-- application/json
+  - application/json
 produces:
 - application/json
 tags:
-- name: restaurant-api
-  x-displayName: Restaurant Webhooks
-- name: restaurant-api
-  x-displayName: Restaurant API
-- name: order-delivery-webhooks
-  x-displayName: Order Delivery Webhooks
-- name: order-acceptance-api
-  x-displayName: Order Acceptance API
-- name: order-api
-  x-displayName: Order API
-- name: order-webhooks
-  x-displayName: Order Webhooks
-- name: order-delivery-api
-  x-displayName: Order Delivery API
-- name: delivery-pools-api
-  x-displayName: Delivery Pools API
+  - name: restaurant-api
+    x-displayName: Restaurant Webhooks
+  - name: restaurant-api
+    x-displayName: Restaurant API
+  - name: order-delivery-webhooks
+    x-displayName: Order Delivery Webhooks
+  - name: order-acceptance-api
+    x-displayName: Order Acceptance API
+  - name: order-api
+    x-displayName: Order API
+  - name: order-webhooks
+    x-displayName: Order Webhooks
+  - name: order-delivery-api
+    x-displayName: Order Delivery API
+  - name: delivery-pools-api
+    x-displayName: Delivery Pools API
 x-tagGroups:
-- name: Delivery Pools
-  tags:
-    - delivery-pools-api
-- name: Order Acceptance
-  tags:
-    - order-acceptance-api
-- name: Orders
-  tags:
-    - order-api
-    - order-webhooks
-- name: Order Delivery
-  tags:
-    - order-delivery-webhooks
-    - order-delivery-api
-- name: Restaurants
-  tags:
-    - restaurant-api
-    - restaurant-webhooks
+  - name: Delivery Pools
+    tags:
+      - delivery-pools-api
+  - name: Order Acceptance
+    tags: 
+      - order-acceptance-api
+  - name: Orders
+    tags: 
+      - order-api
+      - order-webhooks
+  - name: Order Delivery
+    tags:
+      - order-delivery-webhooks
+      - order-delivery-api
+  - name: Restaurants
+    tags:
+      - restaurant-api
+      - restaurant-webhooks
