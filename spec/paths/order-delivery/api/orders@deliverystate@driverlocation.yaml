@@ -2,16 +2,14 @@ put:
   tags:
   - order-delivery-api
   summary: Current driver location (bulk upload)
-  parameters:
-  - name: items
-    in: body
+  requestBody:
     required: true
-    schema:
-      type: array
-      items:
-        "$ref": "#/definitions/bulk-delivery-details"
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            "$ref": "#/definitions/bulk-delivery-details"
   responses:
     '200':
       description: OK
-      schema:
-        "$ref": "#/definitions/object"

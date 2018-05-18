@@ -12,43 +12,39 @@ get:
   responses:
     '200':
       description: OK
-      schema:
-        type: object
-        properties:
-          bestGuess: 
-            type: string
-            description: Your best estimation (hh:mm:ss)
-      examples:
+      content:
         application/json:
-          bestGuess: 00:35:00
+          schema:
+            type: object
+            properties:
+              bestGuess: 
+                type: string
+                description: Your best estimation (hh:mm:ss)
+          examples:
+            request:
+              value:
+                bestGuess: 00:35:00
     '404':
       description: The pool could not be found
-      schema:
-        "$ref": "#/definitions/object"
 put:
   tags:
   - delivery-pools-api
   summary: Set availability for pickup
   description: Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool.
-  parameters:
-  - name: body
-    in: body
+  requestBody:
     required: true
-    schema:
-      type: object
-      properties:
-        bestGuess: 
-          type: string
-          description: Your best estimation (hh:mm:ss)
-      example:
-        application/json:
-          bestGuess: 00:35:00
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            bestGuess: 
+              type: string
+              description: Your best estimation (hh:mm:ss)
+          example:
+              bestGuess: 00:35:00
   responses:
     '202':
       description: Update will take effect shortly
-      schema:
-        "$ref": "#/definitions/object"
     '404':
       description: The pool could not be found
-      schema:
-        "$ref": "#/definitions/object"

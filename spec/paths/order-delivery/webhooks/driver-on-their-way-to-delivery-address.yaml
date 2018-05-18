@@ -6,14 +6,12 @@ put:
   consumes: []
   produces:
   - application/json
-  parameters:
-  - name: driver-status
-    in: body
+  requestBody:
     required: true
-    schema:
-        "$ref": "#/definitions/driver-status"
+    content:
+      application/json:
+        schema:
+          "$ref": "#/definitions/driver-status"
   responses:
     '200':
       description: OK
-      schema:
-        "$ref": "#/definitions/object"

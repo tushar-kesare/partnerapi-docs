@@ -6,16 +6,14 @@ post:
   consumes: []
   produces:
   - application/json
-  parameters:
-  - name: connect-order
-    in: body
+  requestBody:
     required: true
-    schema:
-      type: array
-      items:
-        "$ref": "#/definitions/connectorder"
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            "$ref": "#/definitions/connectorder"
   responses:
     '200':
       description: OK
-      schema:
-        "$ref": "#/definitions/object"

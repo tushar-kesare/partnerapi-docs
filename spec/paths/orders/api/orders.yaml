@@ -2,14 +2,12 @@ post:
   tags:
   - order-api
   summary: "Create order"
-  parameters:
-  - name: orderRequest
-    in: body
+  requestBody:
     required: true
-    schema:
-      "$ref": "#/definitions/order-request"
+    content:
+      application/json:
+        schema:
+          "$ref": "#/definitions/order-request"
   responses:
     '201':
       description: Created
-      schema:
-        "$ref": "#/definitions/object"
