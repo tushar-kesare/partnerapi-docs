@@ -1,115 +1,121 @@
----
 swagger: '2.0'
+version: v1
 info:
-  version: v1
-  title: ''
-  description: "# Getting Started
-  
-  ## Security
-  
-  ### HTTPS
+  description:  |
+    # Getting Started
+    ## Security
+    ### HTTPS
+    All api calls and callbacks require HTTPS. Your service will need a valid
+    SSL certificate and be accesible via the standard SSL port (port 443).
 
-  All api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accesible via the standard SSL port (port 443).
+    ## Making an api request
+    ```
+    PUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1
 
-  ## Making an api request
+    Host: uk-partnerapi.just-eat.io/
+    Content-Length: 1000
+    Content-Type: application/json
+    Authorization: JE-API-KEY abcd123456789
+    ```
 
-  PUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1<br/>
-  Host: uk-partnerapi.just-eat.io/<br/>
-  Content-Length: 1000<br/>
-  Content-Type: application/json<br/>
-  Authorization: JE-API-KEY abcd123456789
-  
-  ## Data Formats
+    ## Data Formats
+    ### Date and time formats
+    All dates and times should use the [ISO 8601 standard for representation
+    of dates and times](https://en.wikipedia.org/wiki/ISO_8601).
 
-  ### Date and time formats
+    Times recorded by Just Eat are either stored in:<br/>
+    - UTC time standard with no offset; OR<br/>
+    - Local time with an accompanying offset to UTC time
 
-  All dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).
+    All properties ending with \"WithUtcOffset\" contain local time along with
+    an offset to UTC time.
 
+    For instance    
 
-  Times recorded by Just Eat are either stored in:<br/>
-  - UTC time standard with no offset; OR<br/>
-  - Local time with an accompanying offset to UTC time
+    **DueDateWithUtcOffset**: \"2015-05-26T14:52:35.5444292+01:00\"<br/>
+    Local time: 14:52<br /> 
+    UTC time: 13:52<br /> 
+    UTC offset: +1hr (due to daylight time saving)
 
+    **DueDateWithUtcOffset**: \"2015-02-03T11:10:00.0000000+00:00\"<br />
+    Local time: 11:10<br />
+    UTC time: 11:10<br />
+    UTC offset: 0 (no daylight time saving, local time is equivalent to UTC)
 
-  All properties ending with \"WithUtcOffset\" contain local time along with an offset to UTC time.
+    Note that the offset may be for a timezone different to your own, so you
+    should alway convert to your own local time for display purposes (e.g. on
+    receipts and terminals).
 
+    ### Callback timestamps
+    Ideally, timestamps sent to Just Eat should be recorded as the current
+    local time (including any changes needed to account for daylight saving)
+    with an accompanying offset that shows the difference between the recorded
+    local time and the current UTC time.  
 
-  For instance:
-
-  
-  **DueDateWithUtcOffset**: \"2015-05-26T14:52:35.5444292+01:00\"<br/>
-  Local time: 14:52<br /> 
-  UTC time: 13:52<br /> 
-  UTC offset: +1hr (due to daylight time saving)
-
-
-  **DueDateWithUtcOffset**: \"2015-02-03T11:10:00.0000000+00:00\"<br />
-  Local time: 11:10<br />
-  UTC time: 11:10<br />
-  UTC offset: 0 (no daylight time saving, local time is equivalent to UTC)
-
-
-  Note that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).
-
-
-  ### Callback timestamps
-
-  Ideally, timestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.  
-  
-  
-  If it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.
-  "
+    If it is not possible to record timestamps in local time, timestamps may
+    be recorded in UTC time with a 00:00 offset.
+  title: JustEat
+  version: 1.0.0
+  x-logo:
+    url: 'https://avatars1.githubusercontent.com/u/1516790?s=100&v=4'
+  x-preferred: true
+  x-providerName: justeat.com
+  x-unofficialSpec: true
+externalDocs:
+  description: JustEat Developer Contextual Documentation
+  url: 'https://developers.justeat.com'
 host: partnerapiurl
 schemes:
 - https
 securityDefinitions:
-  API Key:
-    type: apiKey
-    name: Authorization
-    in: header
-    description: "<p>All api calls require an Authorization
-    Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
-    header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is
-    case sensitive."
+API Key:
+  type: apiKey
+  name: Authorization
+  in: header
+  description: >-
+    <p>All api calls require an Authorization Key which will be provided by
+    JUST EAT.<p><p>The key needs to be provided in the header as follows:
+    </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is
+    case sensitive.
 security:
-  - API Key: []
+- API Key: []
 consumes:
-  - application/json
+- application/json
 produces:
 - application/json
 tags:
-  - name: restaurant-api
-    x-displayName: Restaurant Webhooks
-  - name: restaurant-api
-    x-displayName: Restaurant API
-  - name: order-delivery-webhooks
-    x-displayName: Order Delivery Webhooks
-  - name: order-acceptance-api
-    x-displayName: Order Acceptance API
-  - name: order-api
-    x-displayName: Order API
-  - name: order-webhooks
-    x-displayName: Order Webhooks
-  - name: order-delivery-api
-    x-displayName: Order Delivery API
-  - name: delivery-pools-api
-    x-displayName: Delivery Pools API
+- name: restaurant-api
+  x-displayName: Restaurant Webhooks
+- name: restaurant-api
+  x-displayName: Restaurant API
+- name: order-delivery-webhooks
+  x-displayName: Order Delivery Webhooks
+- name: order-acceptance-api
+  x-displayName: Order Acceptance API
+- name: order-api
+  x-displayName: Order API
+- name: order-webhooks
+  x-displayName: Order Webhooks
+- name: order-delivery-api
+  x-displayName: Order Delivery API
+- name: delivery-pools-api
+  x-displayName: Delivery Pools API
 x-tagGroups:
-  - name: Delivery Pools
-    tags:
-      - delivery-pools-api
-  - name: Order Acceptance
-    tags: 
-      - order-acceptance-api
-  - name: Orders
-    tags: 
-      - order-api
-      - order-webhooks
-  - name: Order Delivery
-    tags:
-      - order-delivery-webhooks
-      - order-delivery-api
-  - name: Restaurants
-    tags:
-      - restaurant-api
-      - restaurant-webhooks
+- name: Delivery Pools
+  tags:
+    - delivery-pools-api
+- name: Order Acceptance
+  tags:
+    - order-acceptance-api
+- name: Orders
+  tags:
+    - order-api
+    - order-webhooks
+- name: Order Delivery
+  tags:
+    - order-delivery-webhooks
+    - order-delivery-api
+- name: Restaurants
+  tags:
+    - restaurant-api
+    - restaurant-webhooks
