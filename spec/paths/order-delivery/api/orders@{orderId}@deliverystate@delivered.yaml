@@ -3,17 +3,16 @@ put:
   - order-delivery-api
   summary: Order delivered
   parameters:
-  - name: orderId
-    in: path
+    - name: orderId
+      in: path
+      required: true
+      type: string
+  requestBody:
     required: true
-    type: string
-  - name: deliveryDetails
-    in: body
-    required: true
-    schema:
-      "$ref": "#/definitions/delivery-details"
+    content:
+      application/json:
+        schema:
+          "$ref": "#/definitions/delivery-details"
   responses:
     '200':
       description: OK
-      schema:
-        "$ref": "#/definitions/object"

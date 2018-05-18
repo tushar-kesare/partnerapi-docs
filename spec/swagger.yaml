@@ -109,8 +109,8 @@ x-tagGroups:
       - order-webhooks
   - name: Order Delivery
     tags:
-      - order-delivery-webhooks
       - order-delivery-api
+      - order-delivery-webhooks
   - name: Restaurants
     tags:
       - restaurant-api

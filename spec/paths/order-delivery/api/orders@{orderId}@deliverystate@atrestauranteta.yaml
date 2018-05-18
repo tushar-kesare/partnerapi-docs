@@ -3,24 +3,23 @@ put:
   - order-delivery-api
   summary: "Driver at restaurant estimated time of arrival"
   parameters:
-  - name: orderId
-    in: path
+    - name: orderId
+      in: path
+      required: true
+      type: string
+  requestBody:
     required: true
-    type: string
-  - name: details
-    in: body
-    required: true
-    schema:
-      type: object
-      properties:
-        estimatedAt: 
-          type: string
-          format: date-time
-        bestGuess:
-          type: string
-          format: date-time
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            estimatedAt: 
+              type: string
+              format: date-time
+            bestGuess:
+              type: string
+              format: date-time
   responses:
     '200':
       description: OK
-      schema:
-        "$ref": "#/definitions/object"

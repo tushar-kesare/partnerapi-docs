@@ -3,17 +3,16 @@ put:
   - order-delivery-api
   summary: Order on its way
   parameters:
-  - name: orderId
-    in: path
+    - name: orderId
+      in: path
+      required: true
+      type: string
+  requestBody:
     required: true
-    type: string
-  - name: onItsWayDetails
-    in: body
-    required: true
-    schema:
-      "$ref": "#/definitions/on-its-way-details"
+    content:
+      application/json:
+        schema:
+          "$ref": "#/definitions/on-its-way-details"
   responses:
     '200':
       description: OK
-      schema:
-        "$ref": "#/definitions/object"
