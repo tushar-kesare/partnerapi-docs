@@ -1,7 +1,32 @@
 ---
 openapi: 3.0.0
 servers:
-  - url: 'https://partnerapiurl/'
+  - url: 'https://{country}-partnerapi.just-eat.io'
+    description: live / production
+    variables:
+      country:
+        enum:
+          - au
+          - ca
+          - dk
+          - es
+          - ie
+          - it
+          - nz
+          - uk
+  - url: 'https://staging-{country}-partnerapi.just-eat.io'
+    description: test / staging
+    variables:
+      country:
+        enum:
+          - au
+          - ca
+          - dk
+          - es
+          - ie
+          - it
+          - nz
+          - uk
 externalDocs:
   description: JUST EAT Developer Contextual Documentation
   url: 'https://developers.justeat.com'
@@ -66,18 +91,18 @@ info:
   
   If it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.
   "
-host: partnerapiurl
 schemes:
 - https
-securityDefinitions:
-  API Key:
-    type: apiKey
-    name: Authorization
-    in: header
-    description: "<p>All api calls require an Authorization
-    Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
-    header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is
-    case sensitive."
+components:
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "<p>All api calls require an Authorization
+      Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the
+      header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is
+      case sensitive."
 security:
   - API Key: []
 consumes:
