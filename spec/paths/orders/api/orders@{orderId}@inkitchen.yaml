@@ -1,6 +1,6 @@
 put:
   tags:
-  - order-preparation-api
+  - order-api
   summary: "Set preparation status: 'in kitchen'"
   description: After you have received an [/order-is-ready-for-preparation](#/paths/~1order-is-ready-for-preparation/post) request, invoke this callback to inform us that the order has been successfully been sent to the underlying POS / kitchen screen.
   parameters:
