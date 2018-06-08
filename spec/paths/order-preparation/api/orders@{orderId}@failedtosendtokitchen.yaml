@@ -1,0 +1,13 @@
+put:
+  tags:
+  - order-preparation-api
+  summary: "Set preparation status: 'failed to send to kitchen'"
+  description: After you have received an [/order-is-ready-for-preparation](#/paths/~1order-is-ready-for-preparation/post) request, invoke this callback if there is an error sending the order to the underlying POS / kitchen screen.
+  parameters:
+    - name: orderId
+      in: path
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Request successfully received

@@ -120,8 +120,10 @@ tags:
     x-displayName: Order Acceptance API
   - name: order-api
     x-displayName: Order API
-  - name: order-webhooks
-    x-displayName: Order Webhooks
+  - name: order-preparation-api
+    x-displayName: Order Preparation API
+  - name: order-preparation-webhooks
+    x-displayName: Order Preparation Webhooks
   - name: order-delivery-api
     x-displayName: Order Delivery API
   - name: delivery-pools-api
@@ -136,7 +138,10 @@ x-tagGroups:
   - name: Orders
     tags: 
       - order-api
-      - order-webhooks
+  - name: Order Preparation
+    tags: 
+      - order-preparation-api
+      - order-preparation-webhooks
   - name: Order Delivery
     tags:
       - order-delivery-api
