@@ -111,21 +111,19 @@ produces:
 - application/json
 tags:
   - name: restaurant-api
-    x-displayName: Restaurant Webhooks
-  - name: restaurant-api
     x-displayName: Restaurant API
-  - name: order-delivery-webhooks
-    x-displayName: Order Delivery Webhooks
+  - name: restaurant-webhooks
+    x-displayName: Restaurant Webhooks
   - name: order-acceptance-api
     x-displayName: Order Acceptance API
   - name: order-api
     x-displayName: Order API
-  - name: order-preparation-api
-    x-displayName: Order Preparation API
-  - name: order-preparation-webhooks
-    x-displayName: Order Preparation Webhooks
+  - name: order-webhooks
+    x-displayName: Order Webhooks
   - name: order-delivery-api
     x-displayName: Order Delivery API
+  - name: order-delivery-webhooks
+    x-displayName: Order Delivery Webhooks
   - name: delivery-pools-api
     x-displayName: Delivery Pools API
 x-tagGroups:
@@ -138,10 +136,7 @@ x-tagGroups:
   - name: Orders
     tags: 
       - order-api
-  - name: Order Preparation
-    tags: 
-      - order-preparation-api
-      - order-preparation-webhooks
+      - order-webhooks
   - name: Order Delivery
     tags:
       - order-delivery-api

@@ -1,6 +1,6 @@
 post:
   tags:
-  - order-preparation-webhooks
+  - order-webhooks
   summary: Order is ready for preparation
   description: This webhook will be invoked when we have determined that an order is ready for preparation. Upon receiving the request, the order should be sent to the underlying POS / kitchen screen immediately. We expect an immediate `201` response from this webhook to denote that you have received the request. Following that, we expect one of the [/inkitchen](#/paths/~1orders~1{orderId}~1inkitchen/put) or [/failedtosendtokitchen](#/paths/~1orders~1{orderId}~1failedtosendtokitchen/put) callbacks to be invoked - once you have sent the order to the underlying POS.
   requestBody:
