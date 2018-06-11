@@ -2,6 +2,7 @@ put:
   tags:
   - order-delivery-api
   summary: Order on its way
+  description: The _on its way_ callback should be sent when the driver departs the restaurant with the customer's order. It should contain an ETA that records when the driver expects to arrive at the customer's address.
   parameters:
     - name: orderId
       in: path
