@@ -2,6 +2,7 @@ put:
   tags:
   - order-delivery-api
   summary: Order delivered
+  description: The _delivered_ callback should be sent when the driver has handed the food to the customer and completed the order.
   parameters:
     - name: orderId
       in: path

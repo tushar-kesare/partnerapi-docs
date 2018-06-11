@@ -2,6 +2,7 @@ put:
   tags:
   - order-delivery-api
   summary: Current driver location
+  description: <p>Just Eat requires all delivery partners to send regular driverlocation callbacks, that record the GPS location of the drivers assigned to each order.</p><p>Partners should aim to supply this callback approximately every 10 seconds.</p>
   parameters:
     - name: orderId
       in: path

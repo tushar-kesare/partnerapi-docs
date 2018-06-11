@@ -1,7 +1,8 @@
 put:
   tags:
   - order-delivery-api
-  summary: "Driver at delivery address"
+  summary: Driver at delivery address
+  description: <p>The _at delivery address_ callback should be sent when the driver thinks that they have arrived at the specified delivery address.</p><p>NB&semi; This callback should be distinct from the delivered callback, as Just Eat use this callback to understand how much time is spent locating the customer's address.</p>
   parameters:
     - name: orderId
       in: path
