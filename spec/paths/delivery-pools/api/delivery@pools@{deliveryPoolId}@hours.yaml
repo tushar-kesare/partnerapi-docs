@@ -179,7 +179,7 @@ put:
                   - startTime: '13:00'
                     endTime: '15:00'
   responses:
-    '202':
-      description: Update will take effect shortly
+    '200':
+      description: Pool hours have been updated
     '404':
       description: The pool could not be found
