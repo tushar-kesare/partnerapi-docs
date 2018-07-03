@@ -1,0 +1,30 @@
+put:
+  tags:
+  - Delivery
+  description: "- This method requires the use of an Authorization Key.\r\n"
+  operationId: OnItsWay
+  consumes:
+  - application/json
+  produces:
+  - application/json
+  parameters:
+  - name: id
+    in: path
+    required: true
+    type: string
+  - name: onItsWayDetails
+    in: body
+    required: true
+    schema:
+      "$ref": "#/definitions/OnItsWayDetails"
+  - name: Authorization
+    in: header
+    description: access token
+    required: true
+    type: string
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/Object"
+  deprecated: false

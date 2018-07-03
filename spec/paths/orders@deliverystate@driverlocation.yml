@@ -1,0 +1,28 @@
+put:
+  tags:
+  - Delivery
+  description: "- This method requires the use of an Authorization Key.\r\n"
+  operationId: BulkDriverLocations
+  consumes:
+  - application/json
+  produces:
+  - application/json
+  parameters:
+  - name: items
+    in: body
+    required: true
+    schema:
+      type: array
+      items:
+        "$ref": "#/definitions/BulkDeliveryDetails"
+  - name: Authorization
+    in: header
+    description: access token
+    required: true
+    type: string
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/Object"
+  deprecated: false

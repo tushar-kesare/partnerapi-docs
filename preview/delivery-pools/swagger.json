@@ -1,0 +1,1649 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": ""
+  },
+  "host": "uk-deliveryserviceexternalapi.just-eat.co.uk:443",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "<p>All calls require HTTPS and an Authorization Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Restaurant API"
+    },
+    {
+      "name": "Restaurant Webhooks"
+    },
+    {
+      "name": "Order Delivery Webhooks"
+    },
+    {
+      "name": "Order Acceptance API"
+    },
+    {
+      "name": "Order Delivery API"
+    },
+    {
+      "name": "Delivery Pools API"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Delivery Pools",
+      "tags": [
+        "Delivery Pools API"
+      ]
+    },
+    {
+      "name": "Order Acceptance",
+      "tags": [
+        "Order Acceptance API"
+      ]
+    },
+    {
+      "name": "Order Delivery",
+      "tags": [
+        "Order Delivery Webhooks",
+        "Order Delivery API"
+      ]
+    },
+    {
+      "name": "Restaurants",
+      "tags": [
+        "Restaurant API",
+        "Restaurant Webhooks"
+      ]
+    }
+  ],
+  "paths": {
+    "/delivery/pools": {
+      "get": {
+        "tags": [
+          "Delivery Pools API"
+        ],
+        "summary": "Get your delivery pools",
+        "description": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "delivery-pool-id": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the pool, used by operations teams, in reports, etc."
+                    },
+                    "restaurants": {
+                      "description": "An array of JUST EAT restaurant ids served by the pool.",
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "int32"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "d5f72466a6dd49a08166d5a044c5b9e4": {
+                  "name": "Toronto - West",
+                  "restaurants": [
+                    123,
+                    456
+                  ]
+                },
+                "b9c6673b8e5948b98cfbd14a982de2c2": {
+                  "name": "Toronto - East",
+                  "restaurants": [
+                    789
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Delivery Pools API"
+        ],
+        "summary": "Create a new delivery pool",
+        "description": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the pool, used by operations teams, in reports, etc."
+                },
+                "restaurantIds": {
+                  "description": "An array of JUST EAT restaurant ids served by the pool.",
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Pool has been created.",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          },
+          "400": {
+            "description": "There was something invalid in your request - check response body for details",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/delivery/pools/{deliveryPoolId}": {
+      "parameters": [
+        {
+          "name": "deliveryPoolId",
+          "in": "path",
+          "required": true,
+          "description": "Identifier for the pool",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Delivery Pools API"
+        ],
+        "summary": "Get an individual delivery pool",
+        "description": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the pool, used by operations teams, in reports, etc."
+                },
+                "restaurants": {
+                  "description": "An array of JUST EAT restaurant ids served by the pool.",
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "format": "int32"
+                  }
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "name": "Toronto - West",
+                "restaurants": [
+                  123,
+                  456
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "The pool could not be found",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delivery Pools API"
+        ],
+        "summary": "Delete a delivery pool",
+        "description": "The restaurants will no longer be associated with the pool.",
+        "responses": {
+          "200": {
+            "description": "Pool deleted",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          },
+          "404": {
+            "description": "The pool could not be found",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Delivery Pools API"
+        ],
+        "summary": "Modify a delivery pool",
+        "description": "Modify a delivery pool, changing its name, restaurants or both",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Request body should contain an object with either or  both of the properties. If a property is not specified then the  existing values are retained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the pool, used by operations teams, in reports, etc."
+                },
+                "restaurantIds": {
+                  "description": "An array of JUST EAT restaurant ids served by the pool.",
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "format": "int32"
+                  }
+                }
+              },
+              "example": {
+                "application/json": {
+                  "name": "Toronto - West",
+                  "restaurants": [
+                    123,
+                    456
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pool has been updated",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          },
+          "400": {
+            "description": "There was something invalid in your request - check response body for details",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          },
+          "404": {
+            "description": "The pool could not be found",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/status": {
+      "put": {
+        "tags": [
+          "Order Acceptance API"
+        ],
+        "summary": "Set Order status",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "partnerId",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "statusRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/order-status-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/delivery/deliverablerestaurants": {
+      "get": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Get deliverable restaurants",
+        "parameters": [
+          {
+            "name": "toLat",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "toLon",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "toPostcode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/deliverable-restaurants"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/delivery/estimate": {
+      "get": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Get delivery estimate",
+        "parameters": [
+          {
+            "name": "restaurantReference",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "toLat",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toLon",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toPostcode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/estimated-delivery-time"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/orders/{orderId}/deliverystate/atdeliveryaddress": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Driver at delivery address",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/atrestaurant": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Driver at restaurant",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/atrestauranteta": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Driver at restaurant estimated time of arrival",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "details",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "estimatedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "bestGuess": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/delivered": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Order delivered",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/driverassigned": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Driver assigned to order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDriverAssignedDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-driver-assigned-details"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/driverlocation": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Current driver location",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/onitsway": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Order on its way",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onItsWayDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/on-its-way-details"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/orders/deliverystate/driverlocation": {
+      "put": {
+        "tags": [
+          "Order Delivery API"
+        ],
+        "summary": "Current driver location (bulk upload)",
+        "parameters": [
+          {
+            "name": "items",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/bulk-delivery-details"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/order-requires-delivery-acceptance": {
+      "get": {
+        "tags": [
+          "Order Delivery Webhooks"
+        ],
+        "summary": "Order requires delivery acceptance",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "connect-order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/connectorder"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/restaurants/{restaurantReference}/temporary-offline-status": {
+      "put": {
+        "tags": [
+          "Restaurant API"
+        ],
+        "operationId": "UpdateRestaurantTemporaryOfflineStatus",
+        "parameters": [
+          {
+            "name": "restaurantReference",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "temporaryOfflineStatus",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/partner-restaurant-temporary-offline-status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order-is-ready-for-preparation": {
+      "get": {
+        "tags": [
+          "Restaurant Webhooks"
+        ],
+        "summary": "Order is ready to be prepared",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "order-is-ready-for-preparation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/order-is-ready-for-preparation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bulk-delivery-details": {
+      "type": "object",
+      "properties": {
+        "OrderId": {
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "deliverable-restaurant": {
+      "type": "object",
+      "properties": {
+        "Restaurant": {
+          "$ref": "#/definitions/deliveryable-restaurant-location-info"
+        },
+        "DeliveryDistanceInMetres": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "DeliveryDurationInSeconds": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "deliverable-restaurants": {
+      "type": "object",
+      "properties": {
+        "DeliveryLocation": {
+          "$ref": "#/definitions/location"
+        },
+        "Restaurants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/deliverable-restaurant"
+          }
+        }
+      }
+    },
+    "delivery-details": {
+      "type": "object",
+      "properties": {
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "example": {
+        "TimeStampWithUtcOffset": "2018-03-10T14:45:28.7537228+00:00"
+      }
+    },
+    "delivery-driver-assigned-details": {
+      "type": "object",
+      "properties": {
+        "DriverName": {
+          "type": "string"
+        },
+        "DriverContactNumber": {
+          "type": "string"
+        },
+        "VehicleDetails": {
+          "$ref": "#/definitions/vehicle-details"
+        },
+        "EstimatedArrivalTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "deliveryable-restaurant-location-info": {
+      "type": "object",
+      "properties": {
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "RestaurantId": {
+          "type": "string"
+        },
+        "Latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "estimated-delivery-time": {
+      "type": "object",
+      "properties": {
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "DurationInMinutes": {
+          "type": "string"
+        }
+      }
+    },
+    "on-its-way-details": {
+      "type": "object",
+      "properties": {
+        "EstimatedArrivalTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "vehicle-details": {
+      "type": "object",
+      "properties": {
+        "Vehicle": {
+          "type": "string"
+        },
+        "VehicleRegistration": {
+          "type": "string"
+        }
+      }
+    },
+    "connectorder": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "CustomerOrderId": {
+          "format": "int32",
+          "type": "number"
+        },
+        "FriendlyOrderReference": {
+          "type": "string"
+        },
+        "OrderReference": {
+          "type": "string"
+        },
+        "IsAMiniFistPumpOrder": {
+          "type": "boolean"
+        },
+        "Order": {
+          "type": "object",
+          "properties": {
+            "NoteToRestaurant": {
+              "type": "string"
+            },
+            "ServiceType": {
+              "type": "string",
+              "enum": [
+                "Collection",
+                "Delivery"
+              ]
+            },
+            "PlacedDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "DueDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "DueDateWithUtcOffset": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "InitialDueDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "InitialDueDateWithUtcOffset": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "PromptAsap": {
+              "type": "boolean"
+            }
+          }
+        },
+        "Restaurant": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "PhoneNumber": {
+              "type": "string"
+            },
+            "AddressLines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "City": {
+              "type": "string"
+            },
+            "Postcode": {
+              "type": "string"
+            },
+            "Longitude": {
+              "type": "number",
+              "format": "double"
+            },
+            "Latitude": {
+              "type": "number",
+              "format": "double"
+            },
+            "DispatchMethod": {
+              "type": "string"
+            },
+            "EmailAddress": {
+              "type": "string"
+            }
+          }
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "PaymentLines": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Type": {
+                    "type": "string",
+                    "enum": [
+                      "Card"
+                    ]
+                  },
+                  "CardFee": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Value": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            },
+            "Total": {
+              "type": "number",
+              "format": "double"
+            },
+            "TotalComplementary": {
+              "type": "number",
+              "format": "double"
+            },
+            "PaidDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "CashOnDelivery": {
+              "type": "boolean"
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "Postcode": {
+              "type": "string"
+            },
+            "Longitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "Latitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "PhoneNumber": {
+              "type": "string"
+            },
+            "TimeZone": {
+              "type": "string"
+            },
+            "PreviousRestuarantOrderCount": {
+              "format": "int32",
+              "type": "number"
+            }
+          }
+        },
+        "Basket": {
+          "type": "object",
+          "properties": {
+            "BasketId": {
+              "type": "string"
+            },
+            "MenuId": {
+              "type": "number",
+              "format": "int32"
+            },
+            "SubTotal": {
+              "type": "number",
+              "format": "double"
+            },
+            "ToSpend": {
+              "type": "number",
+              "format": "double"
+            },
+            "MultiBuyDiscount": {
+              "type": "number",
+              "format": "double"
+            },
+            "Discount": {
+              "type": "number",
+              "format": "double"
+            },
+            "DeliveryCharge": {
+              "type": "number",
+              "format": "double"
+            },
+            "Total": {
+              "type": "number",
+              "format": "double"
+            },
+            "Discounts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "Discount": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "DiscountType": {
+                    "type": "string"
+                  },
+                  "QualifyingValue": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            },
+            "GroupedBasketItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "CombinedPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Quantity": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "OrderSubId": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "MenuCardNumber": {
+                    "type": "string"
+                  },
+                  "BasketItem": {
+                    "type": "object",
+                    "properties": {
+                      "ProductId": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "ProductTypeId": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "MenuCardNumber": {
+                        "type": "string"
+                      },
+                      "Name": {
+                        "type": "string"
+                      },
+                      "Synonym": {
+                        "type": "string"
+                      },
+                      "UnitPrice": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "CombinedPrice": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "MealParts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "MealPartId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "GroupId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "Name": {
+                              "type": "string"
+                            },
+                            "Synonym": {
+                              "type": "string"
+                            },
+                            "OptionalAccessories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "OptionalAccessoryId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "Quantity": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "UnitPrice": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "Name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "RequiredAccessories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "RequiredAccessoryId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "GroupId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "UnitPrice": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "Name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "OptionalAccessories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "OptionalAccessoryId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "Quantity": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "UnitPrice": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "Name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "RequiredAccessories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "RequiredAccessoryId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "GroupId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "UnitPrice": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "Name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "Discounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Amount": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "DiscountType": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "MultiBuyDiscounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "OrderItemId": {
+                              "type": "string"
+                            },
+                            "Amount": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "DiscountType": {
+                              "type": "string"
+                            },
+                            "ProductTypeId": {
+                              "type": "number",
+                              "format": "int32"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "Latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "example": {
+        "Latitude": 51.51641,
+        "Longitude": -0.103198
+      }
+    },
+    "object": {
+      "type": "object"
+    },
+    "order-status-request": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "string",
+          "enum": [
+            "InKitchen",
+            "FailedToSendToKitchen",
+            "Accepted",
+            "Rejected"
+          ],
+          "description": "The requested new state of the order"
+        },
+        "TimeStamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "Data": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "TimeAcceptedFor": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Status",
+        "TimeStamp"
+      ],
+      "example": {
+        "Status": "Accepted",
+        "TimeStamp": "2018-03-10T14:45:28Z"
+      }
+    },
+    "partner-restaurant-temporary-offline-status": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "enum": [
+            "TempOffline",
+            "ClosedToday",
+            "None"
+          ],
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "Status": "TempOffline",
+        "Message": "Too busy"
+      }
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "Reference": {
+          "type": "string"
+        },
+        "OptionReference": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "int32"
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        }
+      }
+    },
+    "order-is-ready-for-preparation": {
+      "type": "object",
+      "properties": {
+        "PartnerOrderId": {
+          "type": "string"
+        },
+        "OrderReference": {
+          "type": "string"
+        },
+        "FriendlyOrderReference": {
+          "type": "string"
+        },
+        "Timezone": {
+          "type": "string"
+        },
+        "IsTest": {
+          "type": "boolean"
+        },
+        "Fulfilment": {
+          "type": "object",
+          "properties": {
+            "Delivery": {
+              "type": "object",
+              "properties": {
+                "PickupTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "DueDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "Address": {
+                  "type": "object",
+                  "properties": {
+                    "Lines": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "City": {
+                      "type": "string"
+                    },
+                    "PostalCode": {
+                      "type": "string"
+                    },
+                    "Geolocation": {
+                      "$ref": "#/definitions/location"
+                    }
+                  }
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
+            },
+            "Collection": {
+              "type": "object",
+              "properties": {
+                "PickupTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "Lines": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Type": {
+                    "type": "string",
+                    "enum": [
+                      "card",
+                      "cash",
+                      "credit",
+                      "other"
+                    ]
+                  },
+                  "PayOnFulfilment": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "Reference": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            }
+          }
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        },
+        "NoteFromCustomer": {
+          "type": "string"
+        },
+        "PlacedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Restaurant": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Reference": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "object",
+              "properties": {
+                "Lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "City": {
+                  "type": "string"
+                },
+                "PostalCode": {
+                  "type": "string"
+                },
+                "Geolocation": {
+                  "$ref": "#/definitions/location"
+                }
+              }
+            },
+            "PhoneNumber": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

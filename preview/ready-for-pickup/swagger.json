@@ -1,0 +1,2531 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "https://{country}-partnerapi.just-eat.io",
+      "description": "live / production",
+      "variables": {
+        "country": {
+          "enum": [
+            "au",
+            "ca",
+            "dk",
+            "es",
+            "ie",
+            "it",
+            "nz",
+            "uk"
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://staging-{country}-partnerapi.just-eat.io",
+      "description": "test / staging",
+      "variables": {
+        "country": {
+          "enum": [
+            "au",
+            "ca",
+            "dk",
+            "es",
+            "ie",
+            "it",
+            "nz",
+            "uk"
+          ]
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "JUST EAT Developer Contextual Documentation",
+    "url": "https://developers.justeat.com"
+  },
+  "info": {
+    "version": "v1",
+    "title": "JUST EAT Partner API Docs",
+    "x-logo": {
+      "url": "https://raw.githubusercontent.com/justeat/partnerapi-docs/master/web/logo-just-eat.png"
+    },
+    "description": "# Getting Started\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accesible via the standard SSL port (port 443).\n## Making an api request\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1<br/> Host: uk-partnerapi.just-eat.io/<br/> Content-Length: 1000<br/> Content-Type: application/json<br/> Authorization: JE-API-KEY abcd123456789\n## Data Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\nTimes recorded by Just Eat are either stored in:<br/> - UTC time standard with no offset; OR<br/> - Local time with an accompanying offset to UTC time\n\nAll properties ending with \"WithUtcOffset\" contain local time along with an offset to UTC time.\n\nFor instance:\n\n**DueDateWithUtcOffset**: \"2015-05-26T14:52:35.5444292+01:00\"<br/> Local time: 14:52<br />  UTC time: 13:52<br />  UTC offset: +1hr (due to daylight time saving)\n\n**DueDateWithUtcOffset**: \"2015-02-03T11:10:00.0000000+00:00\"<br /> Local time: 11:10<br /> UTC time: 11:10<br /> UTC offset: 0 (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nIdeally, timestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.  \n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset. "
+  },
+  "schemes": [
+    "https"
+  ],
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "<p>All api calls require an Authorization Key which will be provided by JUST EAT.<p><p>The key needs to be provided in the header as follows: </p><p><b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>. The key is case sensitive."
+      }
+    }
+  },
+  "security": [
+    {
+      "API Key": []
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "restaurant-api",
+      "x-displayName": "Restaurant API"
+    },
+    {
+      "name": "restaurant-webhooks",
+      "x-displayName": "Restaurant Webhooks"
+    },
+    {
+      "name": "order-acceptance-api",
+      "x-displayName": "Order Acceptance API"
+    },
+    {
+      "name": "order-api",
+      "x-displayName": "Order API"
+    },
+    {
+      "name": "order-webhooks",
+      "x-displayName": "Order Webhooks"
+    },
+    {
+      "name": "order-delivery-api",
+      "x-displayName": "Order Delivery API"
+    },
+    {
+      "name": "order-delivery-webhooks",
+      "x-displayName": "Order Delivery Webhooks"
+    },
+    {
+      "name": "delivery-pools-api",
+      "x-displayName": "Delivery Pools API"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Delivery Pools",
+      "tags": [
+        "delivery-pools-api"
+      ]
+    },
+    {
+      "name": "Order Acceptance",
+      "tags": [
+        "order-acceptance-api"
+      ]
+    },
+    {
+      "name": "Orders",
+      "tags": [
+        "order-api",
+        "order-webhooks"
+      ]
+    },
+    {
+      "name": "Order Delivery",
+      "tags": [
+        "order-delivery-api",
+        "order-delivery-webhooks"
+      ]
+    },
+    {
+      "name": "Restaurants",
+      "tags": [
+        "restaurant-api",
+        "restaurant-webhooks"
+      ]
+    }
+  ],
+  "paths": {
+    "/delivery/pools": {
+      "get": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Get your delivery pools",
+        "description": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "delivery-pool-id": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "The name of the pool, used by operations teams, in reports, etc."
+                        },
+                        "restaurants": {
+                          "description": "An array of JUST EAT restaurant ids served by the pool.",
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "format": "int32"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "d5f72466a6dd49a08166d5a044c5b9e4": {
+                        "name": "Toronto - West",
+                        "restaurants": [
+                          123,
+                          456
+                        ]
+                      },
+                      "b9c6673b8e5948b98cfbd14a982de2c2": {
+                        "name": "Toronto - East",
+                        "restaurants": [
+                          789
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Create a new delivery pool",
+        "description": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the pool, used by operations teams, in reports, etc."
+                  },
+                  "restaurantIds": {
+                    "description": "An array of JUST EAT restaurant ids served by the pool.",
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "format": "int32"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pool has been created."
+          },
+          "400": {
+            "description": "There was something invalid in your request - check response body for details"
+          }
+        }
+      }
+    },
+    "/delivery/pools/{deliveryPoolId}": {
+      "parameters": [
+        {
+          "name": "deliveryPoolId",
+          "in": "path",
+          "required": true,
+          "description": "Identifier for the pool",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Get an individual delivery pool",
+        "description": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the pool, used by operations teams, in reports, etc."
+                    },
+                    "restaurants": {
+                      "description": "An array of JUST EAT restaurant ids served by the pool.",
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "int32"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "name": "Toronto - West",
+                      "restaurants": [
+                        123,
+                        456
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The pool could not be found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Delete a delivery pool",
+        "description": "The restaurants will no longer be associated with the pool.",
+        "responses": {
+          "200": {
+            "description": "Pool deleted"
+          },
+          "404": {
+            "description": "The pool could not be found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Modify a delivery pool",
+        "description": "Modify a delivery pool, changing its name, restaurants or both",
+        "requestBody": {
+          "required": true,
+          "description": "Request body should contain an object with either or  both of the properties. If a property is not specified then the  existing values are retained.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the pool, used by operations teams, in reports, etc."
+                  },
+                  "restaurantIds": {
+                    "description": "An array of JUST EAT restaurant ids served by the pool.",
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "format": "int32"
+                    }
+                  }
+                },
+                "example": {
+                  "name": "Toronto - West",
+                  "restaurants": [
+                    123,
+                    456
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pool has been updated"
+          },
+          "400": {
+            "description": "There was something invalid in your request - check response body for details"
+          },
+          "404": {
+            "description": "The pool could not be found"
+          }
+        }
+      }
+    },
+    "/delivery/pools/{deliveryPoolId}/availability/relative": {
+      "parameters": [
+        {
+          "name": "deliveryPoolId",
+          "in": "path",
+          "required": true,
+          "description": "Identifier for the pool",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Get availability for pickup",
+        "description": "Get the current amount of time it will take a driver to collect a new order from a restaurant in the pool.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bestGuess": {
+                      "type": "string",
+                      "description": "Your best estimation (hh:mm:ss)"
+                    }
+                  }
+                },
+                "examples": {
+                  "request": {
+                    "value": {
+                      "bestGuess": "00:35:00"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The pool could not be found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "delivery-pools-api"
+        ],
+        "summary": "Set availability for pickup",
+        "description": "Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bestGuess": {
+                    "type": "string",
+                    "description": "Your best estimation (hh:mm:ss)"
+                  }
+                },
+                "example": {
+                  "bestGuess": "00:35:00"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Update will take effect shortly"
+          },
+          "404": {
+            "description": "The pool could not be found"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/status": {
+      "put": {
+        "tags": [
+          "order-acceptance-api"
+        ],
+        "summary": "Set Order status",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "partnerId",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/order-status-request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/delivery/deliverablerestaurants": {
+      "get": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Get deliverable restaurants",
+        "parameters": [
+          {
+            "name": "toLat",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "toLon",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "toPostcode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/deliverable-restaurants"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delivery/estimate": {
+      "get": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Get delivery estimate",
+        "parameters": [
+          {
+            "name": "restaurantReference",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "toLat",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toLon",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toPostcode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/estimated-delivery-time"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/orders/{orderId}/deliverystate/atdeliveryaddress": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Driver at delivery address",
+        "description": "<p>The _at delivery address_ callback should be sent when the driver thinks that they have arrived at the specified delivery address.</p><p>NB&semi; This callback should be distinct from the delivered callback, as Just Eat use this callback to understand how much time is spent locating the customer's address.</p>",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/delivery-details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/atrestaurant": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Driver at restaurant",
+        "description": "The _at restaurant_ callback should be sent when the driver arrives at the restaurant and is ready to collect the order.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/delivery-details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/atrestauranteta": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Driver at restaurant estimated time of arrival",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estimatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "bestGuess": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/delivered": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Order delivered",
+        "description": "The _delivered_ callback should be sent when the driver has handed the food to the customer and completed the order.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/delivery-details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/driverassigned": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Driver assigned to order",
+        "description": "The _driver assigned_ callback should be sent when a driver is assigned to the order. It should communicate important details about the driver - and also an ETA that records when the driver expects to arrive at the restaurant.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/delivery-driver-assigned-details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/driverlocation": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Current driver location",
+        "description": "<p>Just Eat requires all delivery partners to send regular driverlocation callbacks, that record the GPS location of the drivers assigned to each order.</p><p>Partners should aim to supply this callback approximately every 10 seconds.</p>",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/delivery-details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deliverystate/onitsway": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Order on its way",
+        "description": "The _on its way_ callback should be sent when the driver departs the restaurant with the customer's order. It should contain an ETA that records when the driver expects to arrive at the customer's address.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/on-its-way-details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/deliverystate/driverlocation": {
+      "put": {
+        "tags": [
+          "order-delivery-api"
+        ],
+        "summary": "Current driver location (bulk upload)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/bulk-delivery-details"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/driver-assigned-to-delivery": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Driver Assigned to Delivery",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/driver-status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/driver-at-delivery-address": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Driver at delivery address",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/driver-status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/driver-at-restaurant": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Driver at restaurant",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/driver-status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/driver-has-delivered-order": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Driver has delivered order",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/driver-status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/driver-on-their-way-to-delivery-address": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Driver on their way to delivery address",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/driver-status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order-is-ready-for-pickup": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Order ready for pickup",
+        "description": "<p>The \"Ready for pickup\" event lets the delivery partner know that the food has been cooked and is now ready for collection up from the restaurant.</p><p>__When this event is received, it is important that you let your driver know that the order should now be collected from inside the restaurant.__ For example, this driver notification could take the form of an in-app notification or an SMS message.</p><p>This communication is needed to support restaurants who are unable to accommodate drivers inside their premises, as it allows restaurants to notify drivers waiting outside that they should come inside to collect their order.</p><p>NB&semi; This event can be sent by the restaurant at any point after the order is accepted by the restaurant (for instance, this event may be sent before the driver has arrived at the restaurant).</p>",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Event": {
+                    "type": "string",
+                    "enum": [
+                      "Ready for pickup"
+                    ]
+                  },
+                  "Timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upon successful receipt of the event, delivery partners should return a 200 HTTP status code indicating acknowledgement of transmission."
+          },
+          "default": {
+            "description": "In the unlikely case of unknown errors, JUST EAT will log a raw response. If possible, the response should have the following format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "Message": {
+                      "type": "string"
+                    },
+                    "Details": {
+                      "type": "string"
+                    },
+                    "OrderId": {
+                      "type": "string",
+                      "required": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order-requires-delivery-acceptance": {
+      "put": {
+        "tags": [
+          "order-delivery-webhooks"
+        ],
+        "summary": "Order requires delivery acceptance",
+        "description": "This webhook will be invoked when we have determined that an order is required acceptance for delivery. Upon receiving the request, the order should be scheduled for pickup by a courier/driver. We expect an immediate `201` response from this webhook to denote that you have received the request.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/connectorder"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "In the event of successful handling of the request, a 201 status code should be returned, indicating acknowledgement of transmission success."
+          },
+          "default": {
+            "description": "In the case that the order cannot be accepted, an appropriate HTTP status code, such as 400 (Bad request) or 500 (Internal server error) should be returned.  In addition to the HTTP status code, a specific reason code and explanatory message should be provided within the response body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "description": "<p>Each code should be selected from the following list of valid reasons.</p><table><tr><th>code</th><th>explantation</th></tr><tr><td>outside_hours</td><td>Delivery partner is closed and not accepting requests.</td></tr><tr><td>too_busy</td><td>Delivery partner does not have enough capacity to accept this request.</td></tr><tr><td>too_far</td><td>The customer is too far away from the restaurant, either by time or distance.</td></tr><tr><td>not_supported</td><td>Delivery partner is currently unable to deliver to the customer's location.</td></tr><tr><td>bad_address</td><td>The order contains an address that could not be processed or understood.</td></tr><tr><td>bad_request</td><td>The order format is invalid or the order contains required data or information that cannot be processed.</td></tr><tr><td>restaurant_not_configured</td><td>Delivery partner is not configured to accept requests for given restaurant.</td></tr><tr><td>duplicate</td><td>The request has already been processed before.</td></tr><tr><td>other</td><td>Any validation failure or unexpected error not covered by the above codes.</td></tr></table>",
+                            "type": "string",
+                            "enum": [
+                              "outside_hours",
+                              "too_busy",
+                              "too_far",
+                              "not_supported",
+                              "bad_address",
+                              "bad_request",
+                              "restaurant_not_configured",
+                              "duplicate",
+                              "other"
+                            ]
+                          },
+                          "message": {
+                            "description": "<p>The accompanying message should, in each case, provide an explanation of the specific problem that was experienced.</p><br/><p>Please note that the accompanying explanatory text are part of the code is only intended as an explanation of each reason code - and should not be returned to us as the message.</p>",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": [
+          "order-api"
+        ],
+        "summary": "Create order",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/order-request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/failedtosendtokitchen": {
+      "put": {
+        "tags": [
+          "order-api"
+        ],
+        "summary": "Set preparation status: 'failed to send to kitchen'",
+        "description": "After you have received an [/order-is-ready-for-preparation](#/paths/~1order-is-ready-for-preparation/post) request, invoke this callback if there is an error sending the order to the underlying POS / kitchen screen.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successfully received"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/inkitchen": {
+      "put": {
+        "tags": [
+          "order-api"
+        ],
+        "summary": "Set preparation status: 'in kitchen'",
+        "description": "After you have received an [/order-is-ready-for-preparation](#/paths/~1order-is-ready-for-preparation/post) request, invoke this callback to inform us that the order has been successfully been sent to the underlying POS / kitchen screen.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successfully received"
+          }
+        }
+      }
+    },
+    "/order-is-ready-for-preparation": {
+      "post": {
+        "tags": [
+          "order-webhooks"
+        ],
+        "summary": "Order is ready for preparation",
+        "description": "This webhook will be invoked when we have determined that an order is ready for preparation. Upon receiving the request, the order should be sent to the underlying POS / kitchen screen immediately. We expect an immediate `201` response from this webhook to denote that you have received the request. Following that, we expect one of the [/inkitchen](#/paths/~1orders~1{orderId}~1inkitchen/put) or [/failedtosendtokitchen](#/paths/~1orders~1{orderId}~1failedtosendtokitchen/put) callbacks to be invoked - once you have sent the order to the underlying POS.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/order-is-ready-for-preparation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "In the event of successful receipt of an order, a 201 status code should be returned, indicating acknowledgement of transmission success."
+          }
+        }
+      }
+    },
+    "/restaurants/{restaurantReference}/temporary-offline-status": {
+      "put": {
+        "tags": [
+          "restaurant-api"
+        ],
+        "operationId": "UpdateRestaurantTemporaryOfflineStatus",
+        "parameters": [
+          {
+            "name": "restaurantReference",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/partner-restaurant-temporary-offline-status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/restaurant-details-updated": {
+      "post": {
+        "tags": [
+          "restaurant-webhooks"
+        ],
+        "summary": "Restaurant Details Updated",
+        "description": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "type": "string",
+                    "format": "enum",
+                    "enum": [
+                      "RestaurantUpdated"
+                    ]
+                  },
+                  "restaurants": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "format": "integer",
+                          "description": "The JUST EAT restaurant id"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "firstLine": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "postcode": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "longitude": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/restaurant-status-change": {
+      "post": {
+        "tags": [
+          "restaurant-webhooks"
+        ],
+        "summary": "Restaurant Status Change",
+        "description": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Event": {
+                    "type": "string",
+                    "format": "enum",
+                    "enum": [
+                      "RestaurantStatusChange"
+                    ]
+                  },
+                  "RestaurantReference": {
+                    "type": "string",
+                    "description": "The JUST EAT Restaurant Id"
+                  },
+                  "Status": {
+                    "type": "string",
+                    "format": "enum",
+                    "enum": [
+                      "online",
+                      "offline"
+                    ]
+                  },
+                  "Message": {
+                    "type": "string",
+                    "deprecated": true,
+                    "description": "This field should not be used but has been left in the callback for backwards compatability purposes"
+                  }
+                }
+              },
+              "examples": {
+                "response": {
+                  "value": {
+                    "Event": "RestaurantStatusChange",
+                    "Status": "online",
+                    "RestaurantReference": "123abc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bulk-delivery-details": {
+      "type": "object",
+      "properties": {
+        "OrderId": {
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "deliverable-restaurant": {
+      "type": "object",
+      "properties": {
+        "Restaurant": {
+          "$ref": "#/definitions/deliveryable-restaurant-location-info"
+        },
+        "DeliveryDistanceInMetres": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "DeliveryDurationInSeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "EstimatedWaitForDeliveryPickupInSeconds": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "deliverable-restaurants": {
+      "type": "object",
+      "properties": {
+        "DeliveryLocation": {
+          "$ref": "#/definitions/location"
+        },
+        "Restaurants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/deliverable-restaurant"
+          }
+        }
+      }
+    },
+    "delivery-details": {
+      "type": "object",
+      "properties": {
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "example": {
+        "TimeStampWithUtcOffset": "2018-03-10T14:45:28.7537228+00:00"
+      }
+    },
+    "delivery-driver-assigned-details": {
+      "type": "object",
+      "properties": {
+        "DriverName": {
+          "type": "string"
+        },
+        "DriverContactNumber": {
+          "type": "string"
+        },
+        "VehicleDetails": {
+          "$ref": "#/definitions/vehicle-details"
+        },
+        "EstimatedArrivalTime": {
+          "descritpion": "This should represent the delivery partner's best guess at when the driver will arrive at the restaurant. In other words, it should not just contain the pick-up time initially requested by Just Eat.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "deliveryable-restaurant-location-info": {
+      "type": "object",
+      "properties": {
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "RestaurantId": {
+          "type": "string"
+        },
+        "Latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "estimated-delivery-time": {
+      "type": "object",
+      "properties": {
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "DurationInMinutes": {
+          "type": "string"
+        }
+      }
+    },
+    "on-its-way-details": {
+      "type": "object",
+      "properties": {
+        "EstimatedArrivalTime": {
+          "description": "This should represent the delivery partner's best guess at when the driver will arrive at the customer's address. In other words, it should not just contain the delivery time initially requested by Just Eat.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "vehicle-details": {
+      "type": "object",
+      "properties": {
+        "Vehicle": {
+          "type": "string"
+        },
+        "VehicleRegistration": {
+          "type": "string"
+        }
+      }
+    },
+    "connectorder": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "Id is the unique ID that Just Eat has assigned to each order. Please use this ID whenever sending requests related to the order."
+        },
+        "CustomerOrderId": {
+          "format": "int32",
+          "type": "number",
+          "deprecated": true,
+          "description": "This is a deprecated customer-facing ID that we maintain to support existing implementations."
+        },
+        "FriendlyOrderReference": {
+          "type": "string",
+          "description": "This is the customer-facing ID for the order, which should be used in any UI or receipts to identify the order to the customer, driver or restaurant."
+        },
+        "OrderReference": {
+          "type": "string",
+          "description": "This field is used to store external references to the order."
+        },
+        "IsAMiniFistPumpOrder": {
+          "type": "boolean",
+          "deprecated": true,
+          "descrption": "Legacy Promotion - Ignore."
+        },
+        "Order": {
+          "type": "object",
+          "properties": {
+            "NoteToRestaurant": {
+              "type": "string",
+              "descrption": "Notes from the customer about their order. In addition to notes for the restaurant, this field can also delivery instructions - and should be displayed to the delivery driver."
+            },
+            "ServiceType": {
+              "type": "string",
+              "enum": [
+                "Collection",
+                "Delivery"
+              ]
+            },
+            "PlacedDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date Customer placed the order. Note that JUST EAT accepts pre-orders therefore there may be a significant difference between Placed Date and Due Date This Date/Time is set as UTC without an offset, regardless of Country."
+            },
+            "RdsPickupTimeWithUtcOffset": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the Delivery Partner needs to be at the Restaurant to pickup the Order."
+            },
+            "DueDate": {
+              "type": "string",
+              "format": "date-time",
+              "deprecated": true,
+              "description": "Ignore - use DueDateWithUtcOffset."
+            },
+            "DueDateWithUtcOffset": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The DateTime when the Customer has been told they will receive the Order."
+            },
+            "InitialDueDate": {
+              "type": "string",
+              "format": "date-time",
+              "deprecated": true,
+              "description": "Ignore - use IntialDueDateWithUtcOffset."
+            },
+            "InitialDueDateWithUtcOffset": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the Customer was originally told the order would be delivered (prior to Restaurant adjustment)"
+            },
+            "PromptAsap": {
+              "type": "boolean",
+              "description": "Did the Customer request the Order to ready ASAP"
+            }
+          }
+        },
+        "Restaurant": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string",
+              "description": "Unique ID of the Restaurant."
+            },
+            "Name": {
+              "type": "string",
+              "description": "The name of the Restaurant."
+            },
+            "PhoneNumber": {
+              "type": "string",
+              "description": "The Restaurant phone number."
+            },
+            "AddressLines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "City": {
+              "type": "string"
+            },
+            "Postcode": {
+              "type": "string"
+            },
+            "Longitude": {
+              "type": "number",
+              "format": "double",
+              "description": "Restaurant address longitude. Will be 0 if not provided."
+            },
+            "Latitude": {
+              "type": "number",
+              "format": "double",
+              "description": "Restaurant address latitude. Will be 0 if not provided."
+            },
+            "DispatchMethod": {
+              "type": "string",
+              "description": "JUST EAT device used by the Restaurant."
+            },
+            "EmailAddress": {
+              "type": "string",
+              "description": "Email address for the Restaurant."
+            }
+          }
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "PaymentLines": {
+              "type": "array",
+              "descrption": "How the Customer has paid for the Order.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Type": {
+                    "type": "string",
+                    "description": "How was the order Paid.",
+                    "enum": [
+                      "Card"
+                    ]
+                  },
+                  "CardFee": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Was there a fee for the payment mechanism."
+                  },
+                  "Value": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "The value of the payment."
+                  }
+                }
+              }
+            },
+            "DriverTipValue": {
+              "type": "number",
+              "format": "double",
+              "description": "The value of the tip given to the Driver."
+            },
+            "Total": {
+              "type": "number",
+              "format": "double",
+              "description": "The total order value."
+            },
+            "TotalComplementary": {
+              "type": "number",
+              "format": "double",
+              "description": "Order amount covered by JUST EAT."
+            },
+            "PaidDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "DateTime when the Order was Paid (excludes UTC offset)."
+            },
+            "CashOnDelivery": {
+              "type": "boolean",
+              "description": "Is the Customer paying on Delivery."
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string",
+              "description": "The JUST EAT Customer Id."
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "string",
+              "description": "Customer Address. Note that Address is comma delimited."
+            },
+            "City": {
+              "type": "string"
+            },
+            "Postcode": {
+              "type": "string"
+            },
+            "Longitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "Latitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "PhoneNumber": {
+              "type": "string"
+            },
+            "TimeZone": {
+              "type": "string",
+              "description": "Customer timezone, e.g. 'Central European Standard Time'."
+            },
+            "PreviousRestuarantOrderCount": {
+              "format": "int32",
+              "type": "number",
+              "description": "The number of Orders the Customer has placed at this Restaurant via JUST EAT"
+            }
+          }
+        },
+        "Basket": {
+          "type": "object",
+          "properties": {
+            "BasketId": {
+              "type": "string",
+              "description": "Unique Basket Id for the Order."
+            },
+            "MenuId": {
+              "type": "number",
+              "format": "int32"
+            },
+            "SubTotal": {
+              "description": "The Basket total cost, excluding any discounts.",
+              "type": "number",
+              "format": "double"
+            },
+            "ToSpend": {
+              "type": "number",
+              "format": "double"
+            },
+            "MultiBuyDiscount": {
+              "type": "number",
+              "format": "double"
+            },
+            "Discount": {
+              "description": "The discount amount, used in conjunction with DiscountType.",
+              "type": "number",
+              "format": "double"
+            },
+            "DeliveryCharge": {
+              "type": "number",
+              "format": "double"
+            },
+            "Total": {
+              "type": "number",
+              "format": "double"
+            },
+            "Discounts": {
+              "description": "Any Discounts applied to the Order see http://developers.just-eat.com/docs/mealdeal-with-accessories-and-discount.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "Discount": {
+                    "description": "The discount amount, used in conjunction with DiscountType.",
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "DiscountType": {
+                    "description": "The type of discount, e.g. a percentage or the order or fixed amount.",
+                    "type": "string"
+                  },
+                  "QualifyingValue": {
+                    "description": "he minimum order amount in order for this discount to be applicable.",
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            },
+            "GroupedBasketItems": {
+              "type": "array",
+              "items": {
+                "description": "An item in the Basket.",
+                "type": "object",
+                "properties": {
+                  "CombinedPrice": {
+                    "description": "The total price of the Basket Item (including discounts).",
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Quantity": {
+                    "description": "The quanity of Basket Items requested.",
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "OrderSubId": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "MenuCardNumber": {
+                    "type": "string"
+                  },
+                  "BasketItem": {
+                    "type": "object",
+                    "properties": {
+                      "ProductId": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "ProductTypeId": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "MenuCardNumber": {
+                        "type": "string"
+                      },
+                      "Name": {
+                        "description": "The Item name, e.g. Chicken Tikka Masala or Family Meal Deal 3.",
+                        "type": "string"
+                      },
+                      "Synonym": {
+                        "description": "Legacy - ignore.",
+                        "type": "string"
+                      },
+                      "UnitPrice": {
+                        "description": "The price of the item.",
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "CombinedPrice": {
+                        "description": "Unit Price plus individual Meal Part item cost.",
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "MealParts": {
+                        "description": "Represents sub-parts of a meal.",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "MealPartId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "GroupId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "Name": {
+                              "type": "string"
+                            },
+                            "Synonym": {
+                              "type": "string"
+                            },
+                            "OptionalAccessories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "OptionalAccessoryId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "Quantity": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "UnitPrice": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "Name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "RequiredAccessories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "RequiredAccessoryId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "GroupId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "UnitPrice": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "Name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "OptionalAccessories": {
+                        "description": "An option item added to the Basket Item, this may be options such as Garlic Bread or a bottle of Coke.",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "OptionalAccessoryId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "Quantity": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "UnitPrice": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "Name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "RequiredAccessories": {
+                        "description": "Items required as part of the Item, for example, Pizza base sauce.",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "RequiredAccessoryId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "GroupId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "UnitPrice": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "Name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "Discounts": {
+                        "description": "Any discounts applied to this specfic item.",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Amount": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "DiscountType": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "MultiBuyDiscounts": {
+                        "description": "Any multi-purchase discounts appled to this item.",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "OrderItemId": {
+                              "type": "string"
+                            },
+                            "Amount": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "DiscountType": {
+                              "type": "string"
+                            },
+                            "ProductTypeId": {
+                              "type": "number",
+                              "format": "int32"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "driver-status": {
+      "type": "object",
+      "properties": {
+        "TimeStamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "EstimatedPickupTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "EstimatedDeliveryTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DriverName": {
+          "type": "string"
+        },
+        "DriverContactNumber": {
+          "type": "string"
+        },
+        "Event": {
+          "type": "string",
+          "enum": [
+            "DriverAssigned",
+            "DriverAtRestaurant",
+            "OnItsWay",
+            "AtDeliveryAddress",
+            "Delivered"
+          ]
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "Latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Speed": {
+          "format": "double",
+          "type": "number"
+        },
+        "Heading": {
+          "format": "double",
+          "type": "number"
+        },
+        "Accuracy": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "Latitude",
+        "Longitude"
+      ],
+      "example": {
+        "Latitude": 51.51641,
+        "Longitude": -0.103198,
+        "Speed": 8.68,
+        "Heading": 357.10382,
+        "Accuracy": 12.814
+      }
+    },
+    "object": {
+      "type": "object"
+    },
+    "order-is-ready-for-preparation": {
+      "type": "object",
+      "properties": {
+        "PartnerOrderId": {
+          "type": "string"
+        },
+        "OrderReference": {
+          "type": "string"
+        },
+        "FriendlyOrderReference": {
+          "type": "string"
+        },
+        "Fulfilment": {
+          "type": "object",
+          "properties": {
+            "Delivery": {
+              "type": "object",
+              "properties": {
+                "PickupTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "DueDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "Address": {
+                  "type": "object",
+                  "properties": {
+                    "Lines": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "City": {
+                      "type": "string"
+                    },
+                    "PostalCode": {
+                      "type": "string"
+                    },
+                    "Geolocation": {
+                      "$ref": "#/definitions/location"
+                    }
+                  }
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
+            },
+            "Collection": {
+              "type": "object",
+              "properties": {
+                "PickupTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "Lines": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Type": {
+                    "type": "string",
+                    "enum": [
+                      "card",
+                      "cash",
+                      "credit",
+                      "other"
+                    ]
+                  },
+                  "PayOnFulfilment": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "Reference": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            }
+          }
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        },
+        "NoteFromCustomer": {
+          "type": "string"
+        },
+        "IsTest": {
+          "type": "boolean"
+        },
+        "PlacedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Restaurant": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Reference": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "object",
+              "properties": {
+                "Lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "City": {
+                  "type": "string"
+                },
+                "PostalCode": {
+                  "type": "string"
+                },
+                "Geolocation": {
+                  "$ref": "#/definitions/location"
+                }
+              }
+            },
+            "PhoneNumber": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "order-status-request": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "string",
+          "enum": [
+            "InKitchen",
+            "FailedToSendToKitchen",
+            "Accepted",
+            "Rejected"
+          ],
+          "description": "The requested new state of the order"
+        },
+        "TimeStamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "Data": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "TimeAcceptedFor": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Status",
+        "TimeStamp"
+      ],
+      "example": {
+        "Status": "Accepted",
+        "TimeStamp": "2018-03-10T14:45:28Z"
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "AddressLines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "City": {
+          "type": "string"
+        },
+        "Postcode": {
+          "type": "string"
+        }
+      }
+    },
+    "customer": {
+      "type": "object",
+      "properties": {
+        "CustomerReference": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Address": {
+          "$ref": "#/definitions/address"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        }
+      }
+    },
+    "fee": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "format": "money",
+          "type": "number"
+        },
+        "Type": {
+          "type": "string"
+        }
+      }
+    },
+    "fulfillment": {
+      "type": "object",
+      "properties": {
+        "PickupTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Method": {
+          "type": "string"
+        },
+        "Table": {
+          "type": "string"
+        }
+      }
+    },
+    "order-request": {
+      "type": "object",
+      "properties": {
+        "OrderReference": {
+          "type": "string"
+        },
+        "FriendlyOrderReference": {
+          "type": "string"
+        },
+        "EventUpdateUri": {
+          "type": "string"
+        },
+        "Fulfillment": {
+          "$ref": "#/definitions/fulfillment"
+        },
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "Payment": {
+          "$ref": "#/definitions/payment"
+        },
+        "Customer": {
+          "$ref": "#/definitions/customer"
+        },
+        "Basket": {
+          "type": "string"
+        },
+        "CustomerNote": {
+          "type": "string"
+        },
+        "PlacedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "TimeStampAccepted": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "IsRds": {
+          "type": "boolean"
+        },
+        "RestaurantDetails": {
+          "$ref": "#/definitions/restaurant-details"
+        },
+        "PartnerName": {
+          "type": "string"
+        },
+        "PartnerSubscriptionId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "PlacedDate",
+        "DueDate",
+        "OrderReference",
+        "Payment",
+        "Customer",
+        "Basket",
+        "RestaurantDetails",
+        "PartnerSubscriptionId"
+      ]
+    },
+    "payment": {
+      "type": "object",
+      "properties": {
+        "DriverTipValue": {
+          "format": "money",
+          "type": "number"
+        },
+        "Total": {
+          "format": "money",
+          "type": "number"
+        },
+        "CashOnDelivery": {
+          "type": "boolean"
+        },
+        "RestaurantTipValue": {
+          "format": "money",
+          "type": "number"
+        },
+        "DeliveryCharge": {
+          "format": "money",
+          "type": "number"
+        },
+        "CardCharges": {
+          "format": "money",
+          "type": "number"
+        },
+        "Fees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/fee"
+          }
+        }
+      }
+    },
+    "restaurant-details": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "Postcode": {
+          "type": "string"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        }
+      },
+      "required": [
+        "Id",
+        "Email",
+        "Name",
+        "Address",
+        "Location"
+      ]
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "Reference": {
+          "type": "string"
+        },
+        "OptionReference": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "int32"
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        }
+      }
+    },
+    "partner-restaurant-temporary-offline-status": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "enum": [
+            "TempOffline",
+            "ClosedToday",
+            "None"
+          ],
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "Status": "TempOffline",
+        "Message": "Too busy"
+      }
+    }
+  }
+}

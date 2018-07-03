@@ -1,0 +1,25 @@
+---
+swagger: '2.0'
+info:
+  version: v1
+  title: ''
+  description: "<h2>Delivery Service API</h2><p>Some calls require HTTPS and an Authorization
+    Key which will be provided by Just Eat.<p><p>The key needs to be provided in the
+    header as follows: <b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
+host: uk-deliveryserviceexternalapi.just-eat.co.uk:443
+schemes:
+- https
+tags:
+  - name: Restaurants
+    description: |
+      TBC
+  - name: Delivery
+    description: |
+      TBC
+x-tagGroups:
+  - name: Restaurant Management
+    tags:
+      - Restaurants
+  - name: Delivery
+    tags:
+      - Delivery

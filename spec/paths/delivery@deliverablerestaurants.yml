@@ -1,0 +1,34 @@
+get:
+  tags:
+  - Delivery
+  description: "- This method requires the use of an Authorization Key.\r\n"
+  operationId: Delivery_DeliverableRestaurants
+  consumes: []
+  produces:
+  - application/json
+  parameters:
+  - name: toLat
+    in: query
+    required: false
+    type: number
+    format: double
+  - name: toLon
+    in: query
+    required: false
+    type: number
+    format: double
+  - name: toPostcode
+    in: query
+    required: false
+    type: string
+  - name: Authorization
+    in: header
+    description: access token
+    required: true
+    type: string
+  responses:
+    '200':
+      description: OK
+      schema:
+        "$ref": "#/definitions/DeliverableRestaurants"
+  deprecated: false

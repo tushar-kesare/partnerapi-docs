@@ -1,0 +1,12 @@
+type: object
+properties:
+  Location:
+    "$ref": "#/definitions/Location"
+  TimeStampWithUtcOffset:
+    format: date-time
+    type: string
+example:
+  Location:
+    Latitude: 51.51641
+    Longitude: -0.103198
+  TimeStampWithUtcOffset: '2018-03-10T14:45:28.7537228+00:00'

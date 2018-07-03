@@ -1,0 +1,1457 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "",
+    "description": "<h2>Delivery Service API</h2><p>Some calls require HTTPS and an Authorization Key which will be provided by Just Eat.<p><p>The key needs to be provided in the header as follows: <b>Authorization: JE-API-KEY {Your-Key-Here}</b></p>"
+  },
+  "host": "uk-deliveryserviceexternalapi.just-eat.co.uk:443",
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "Restaurant API"
+    },
+    {
+      "name": "Restaurant Webhooks"
+    },
+    {
+      "name": "Delivery Webhooks"
+    },
+    {
+      "name": "Delivery API"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Delivery",
+      "tags": [
+        "Delivery Webhooks",
+        "Delivery API"
+      ]
+    },
+    {
+      "name": "Restaurants",
+      "tags": [
+        "Restaurant API",
+        "Restaurant Webhooks"
+      ]
+    }
+  ],
+  "paths": {
+    "/delivery/deliverablerestaurants": {
+      "get": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Get deliverable restaurants",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "toLat",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "toLon",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "toPostcode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/deliverable-restaurants"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/delivery/estimate": {
+      "get": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Get delivery estimate",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "restaurantReference",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "toLat",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toLon",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toPostcode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/estimated-delivery-time"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/orders/{id}/deliverystate/atdeliveryaddress": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Driver at delivery address",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/{id}/deliverystate/atrestaurant": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Driver at restaurant",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/{id}/deliverystate/atrestauranteta": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Driver at restaurant estimated time of arrival",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "details",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "estimatedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "bestGuess": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/{id}/deliverystate/delivered": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Order delivered",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/{id}/deliverystate/driverassigned": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Driver assigned to order",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDriverAssignedDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-driver-assigned-details"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/{id}/deliverystate/driverlocation": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Current driver location",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deliveryDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/delivery-details"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/{id}/deliverystate/onitsway": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "summary": "Order on its way",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onItsWayDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/on-its-way-details"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orders/deliverystate/driverlocation": {
+      "put": {
+        "tags": [
+          "Delivery API"
+        ],
+        "summary": "Current driver location (bulk upload)",
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "items",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/bulk-delivery-details"
+              }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order-requires-delivery-acceptance": {
+      "get": {
+        "tags": [
+          "Delivery Webhooks"
+        ],
+        "summary": "Order requires delivery acceptance",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "connect-order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/connectorder"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    },
+    "/restaurants/{restaurantReference}/temporary-offline-status": {
+      "put": {
+        "tags": [
+          "Restaurant API"
+        ],
+        "description": "- This method requires the use of an Authorization Key.\r\n",
+        "operationId": "UpdateRestaurantTemporaryOfflineStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "restaurantReference",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "temporaryOfflineStatus",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/partner-restaurant-temporary-offline-status"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order-is-ready-for-preparation": {
+      "get": {
+        "tags": [
+          "Restaurant Webhooks"
+        ],
+        "summary": "Order is ready to be prepared",
+        "description": "",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "order-is-ready-for-preparation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/order-is-ready-for-preparation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/object"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bulk-delivery-details": {
+      "type": "object",
+      "properties": {
+        "OrderId": {
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "deliverable-restaurant": {
+      "type": "object",
+      "properties": {
+        "Restaurant": {
+          "$ref": "#/definitions/deliveryable-restaurant-location-info"
+        },
+        "DeliveryDistanceInMetres": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "DeliveryDurationInSeconds": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "deliverable-restaurants": {
+      "type": "object",
+      "properties": {
+        "DeliveryLocation": {
+          "$ref": "#/definitions/location"
+        },
+        "Restaurants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/deliverable-restaurant"
+          }
+        }
+      }
+    },
+    "delivery-details": {
+      "type": "object",
+      "properties": {
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "example": {
+        "TimeStampWithUtcOffset": "2018-03-10T14:45:28.7537228+00:00"
+      }
+    },
+    "delivery-driver-assigned-details": {
+      "type": "object",
+      "properties": {
+        "DriverName": {
+          "type": "string"
+        },
+        "DriverContactNumber": {
+          "type": "string"
+        },
+        "VehicleDetails": {
+          "$ref": "#/definitions/vehicle-details"
+        },
+        "EstimatedArrivalTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "deliveryable-restaurant-location-info": {
+      "type": "object",
+      "properties": {
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "RestaurantId": {
+          "type": "string"
+        },
+        "Latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "estimated-delivery-time": {
+      "type": "object",
+      "properties": {
+        "RestaurantReference": {
+          "type": "string"
+        },
+        "DurationInMinutes": {
+          "type": "string"
+        }
+      }
+    },
+    "on-its-way-details": {
+      "type": "object",
+      "properties": {
+        "EstimatedArrivalTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Location": {
+          "$ref": "#/definitions/location"
+        },
+        "TimeStampWithUtcOffset": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "vehicle-details": {
+      "type": "object",
+      "properties": {
+        "Vehicle": {
+          "type": "string"
+        },
+        "VehicleRegistration": {
+          "type": "string"
+        }
+      }
+    },
+    "connectorder": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "CustomerOrderId": {
+          "format": "int32",
+          "type": "number"
+        },
+        "FriendlyOrderReference": {
+          "type": "string"
+        },
+        "OrderReference": {
+          "type": "string"
+        },
+        "IsAMiniFistPumpOrder": {
+          "type": "boolean"
+        },
+        "Order": {
+          "type": "object",
+          "properties": {
+            "NoteToRestaurant": {
+              "type": "string"
+            },
+            "ServiceType": {
+              "type": "string",
+              "enum": [
+                "Collection",
+                "Delivery"
+              ]
+            },
+            "PlacedDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "DueDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "DueDateWithUtcOffset": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "InitialDueDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "InitialDueDateWithUtcOffset": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "PromptAsap": {
+              "type": "boolean"
+            }
+          }
+        },
+        "Restaurant": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "PhoneNumber": {
+              "type": "string"
+            },
+            "AddressLines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "City": {
+              "type": "string"
+            },
+            "Postcode": {
+              "type": "string"
+            },
+            "Longitude": {
+              "type": "number",
+              "format": "double"
+            },
+            "Latitude": {
+              "type": "number",
+              "format": "double"
+            },
+            "DispatchMethod": {
+              "type": "string"
+            },
+            "EmailAddress": {
+              "type": "string"
+            }
+          }
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "PaymentLines": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Type": {
+                    "type": "string",
+                    "enum": [
+                      "Card"
+                    ]
+                  },
+                  "CardFee": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Value": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            },
+            "Total": {
+              "type": "number",
+              "format": "double"
+            },
+            "TotalComplementary": {
+              "type": "number",
+              "format": "double"
+            },
+            "PaidDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "CashOnDelivery": {
+              "type": "boolean"
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "Postcode": {
+              "type": "string"
+            },
+            "Longitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "Latitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "PhoneNumber": {
+              "type": "string"
+            },
+            "TimeZone": {
+              "type": "string"
+            },
+            "PreviousRestuarantOrderCount": {
+              "format": "int32",
+              "type": "number"
+            }
+          }
+        },
+        "Basket": {
+          "type": "object",
+          "properties": {
+            "BasketId": {
+              "type": "string"
+            },
+            "MenuId": {
+              "type": "number",
+              "format": "int32"
+            },
+            "SubTotal": {
+              "type": "number",
+              "format": "double"
+            },
+            "ToSpend": {
+              "type": "number",
+              "format": "double"
+            },
+            "MultiBuyDiscount": {
+              "type": "number",
+              "format": "double"
+            },
+            "Discount": {
+              "type": "number",
+              "format": "double"
+            },
+            "DeliveryCharge": {
+              "type": "number",
+              "format": "double"
+            },
+            "Total": {
+              "type": "number",
+              "format": "double"
+            },
+            "Discounts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "Discount": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "DiscountType": {
+                    "type": "string"
+                  },
+                  "QualifyingValue": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            },
+            "GroupedBasketItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "CombinedPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Quantity": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "OrderSubId": {
+                    "type": "number",
+                    "format": "int32"
+                  },
+                  "MenuCardNumber": {
+                    "type": "string"
+                  },
+                  "BasketItem": {
+                    "type": "object",
+                    "properties": {
+                      "ProductId": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "ProductTypeId": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "MenuCardNumber": {
+                        "type": "string"
+                      },
+                      "Name": {
+                        "type": "string"
+                      },
+                      "Synonym": {
+                        "type": "string"
+                      },
+                      "UnitPrice": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "CombinedPrice": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "MealParts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "MealPartId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "GroupId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "Name": {
+                              "type": "string"
+                            },
+                            "Synonym": {
+                              "type": "string"
+                            },
+                            "OptionalAccessories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "OptionalAccessoryId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "Quantity": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "UnitPrice": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "Name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "RequiredAccessories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "RequiredAccessoryId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "GroupId": {
+                                    "type": "number",
+                                    "format": "int32"
+                                  },
+                                  "UnitPrice": {
+                                    "type": "number",
+                                    "format": "double"
+                                  },
+                                  "Name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "OptionalAccessories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "OptionalAccessoryId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "Quantity": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "UnitPrice": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "Name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "RequiredAccessories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "RequiredAccessoryId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "GroupId": {
+                              "type": "number",
+                              "format": "int32"
+                            },
+                            "UnitPrice": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "Name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "Discounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Amount": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "DiscountType": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "MultiBuyDiscounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "OrderItemId": {
+                              "type": "string"
+                            },
+                            "Amount": {
+                              "type": "number",
+                              "format": "double"
+                            },
+                            "DiscountType": {
+                              "type": "string"
+                            },
+                            "ProductTypeId": {
+                              "type": "number",
+                              "format": "int32"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "Latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "example": {
+        "Latitude": 51.51641,
+        "Longitude": -0.103198
+      }
+    },
+    "object": {
+      "type": "object"
+    },
+    "partner-restaurant-temporary-offline-status": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "enum": [
+            "TempOffline",
+            "ClosedToday",
+            "None"
+          ],
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "Status": "TempOffline",
+        "Message": "Too busy"
+      }
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "Reference": {
+          "type": "string"
+        },
+        "OptionReference": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "int32"
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        }
+      }
+    },
+    "order-is-ready-for-preparation": {
+      "type": "object",
+      "properties": {
+        "PartnerOrderId": {
+          "type": "string"
+        },
+        "OrderReference": {
+          "type": "string"
+        },
+        "FriendlyOrderReference": {
+          "type": "string"
+        },
+        "Timezone": {
+          "type": "string"
+        },
+        "IsTest": {
+          "type": "boolean"
+        },
+        "Fulfilment": {
+          "type": "object",
+          "properties": {
+            "Delivery": {
+              "type": "object",
+              "properties": {
+                "PickupTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "DueDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "Address": {
+                  "type": "object",
+                  "properties": {
+                    "Lines": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "City": {
+                      "type": "string"
+                    },
+                    "PostalCode": {
+                      "type": "string"
+                    },
+                    "Geolocation": {
+                      "$ref": "#/definitions/location"
+                    }
+                  }
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
+            },
+            "Collection": {
+              "type": "object",
+              "properties": {
+                "PickupTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Payment": {
+          "type": "object",
+          "properties": {
+            "Lines": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Type": {
+                    "type": "string",
+                    "enum": [
+                      "card",
+                      "cash",
+                      "credit",
+                      "other"
+                    ]
+                  },
+                  "PayOnFulfilment": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "Reference": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            }
+          }
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        },
+        "NoteFromCustomer": {
+          "type": "string"
+        },
+        "PlacedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Restaurant": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Reference": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "object",
+              "properties": {
+                "Lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "City": {
+                  "type": "string"
+                },
+                "PostalCode": {
+                  "type": "string"
+                },
+                "Geolocation": {
+                  "$ref": "#/definitions/location"
+                }
+              }
+            },
+            "PhoneNumber": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

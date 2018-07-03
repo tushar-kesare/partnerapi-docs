@@ -1,0 +1,10 @@
+type: object
+properties:
+  ToLat:
+    format: double
+    type: number
+  ToLon:
+    format: double
+    type: number
+  ToPostcode:
+    type: string
