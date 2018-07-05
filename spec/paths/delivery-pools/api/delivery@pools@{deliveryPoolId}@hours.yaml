@@ -8,7 +8,7 @@ put:
   tags:
   - delivery-pools-api
   summary: Set the delivery pools daily start and end times
-  description: Set the daily start and end times for a pool or set closed flag if the pool does not operate on that day. Start and end times for all days must be provided. Though the api accepts array of start and end times for each day, only one record of start and end time for each day must be provided. If the end time for a day is equal to or before start time, end time will be considered as time for the next day.
+  description: Set the daily start and end times for a pool or set closed flag if the pool does not operate on that day. Start and end times for all days must be provided. Though the api accepts array of start and end times for each day, multiple start and end time for a day are not accepted. If the end time for a day is equal to or before start time, end time will be considered as time for the next day.
   requestBody:
     required: true
     content:
