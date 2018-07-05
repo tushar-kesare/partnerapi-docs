@@ -18,7 +18,6 @@ put:
           properties:
             monday:
               type: object
-			  required: true
               properties:
                 closed:
                   type: boolean
@@ -26,18 +25,20 @@ put:
                 poolTimes:
                   type: array
                   description: pool start and end times for the day
-				  required: true
                   items:
                     type: object
                     properties:
                       startTime:
                         type: string
                         description: pool start time for Monday (HH:mm)
-						required: true
                       endTime:
                         type: string
                         description: pool end time for Monday (HH:mm)
-						required: true
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
             tuesday:
               type: object
               properties:
@@ -52,10 +53,15 @@ put:
                     properties:
                       startTime:
                         type: string
-                        description: pool start time for tuesday (HH:mm)
+                        description: pool start time for Tuesday (HH:mm)
                       endTime:
                         type: string
-                        description: pool end time for tuesday (HH:mm)
+                        description: pool end time for Tuesday (HH:mm)
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
             wednesday:
               type: object
               properties:
@@ -70,10 +76,15 @@ put:
                     properties:
                       startTime:
                         type: string
-                        description: pool start time for wednesday (HH:mm)
+                        description: pool start time for Wednesday (HH:mm)
                       endTime:
                         type: string
-                        description: pool end time for wednesday (HH:mm)
+                        description: pool end time for Wednesday (HH:mm)
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
             thursday:
               type: object
               properties:
@@ -88,10 +99,15 @@ put:
                     properties:
                       startTime:
                         type: string
-                        description: pool start time for thursday (HH:mm)
+                        description: pool start time for Thursday (HH:mm)
                       endTime:
                         type: string
-                        description: pool end time for thursday (HH:mm)
+                        description: pool end time for Thursday (HH:mm)
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
             friday:
               type: object
               properties:
@@ -106,10 +122,15 @@ put:
                     properties:
                       startTime:
                         type: string
-                        description: pool start time for friday (HH:mm)
+                        description: pool start time for Friday (HH:mm)
                       endTime:
                         type: string
-                        description: pool end time for friday (HH:mm)
+                        description: pool end time for Friday (HH:mm)
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
             saturday:
               type: object
               properties:
@@ -124,10 +145,15 @@ put:
                     properties:
                       startTime:
                         type: string
-                        description: pool start time for saturday (HH:mm)
+                        description: pool start time for Saturday (HH:mm)
                       endTime:
                         type: string
-                        description: pool end time for saturday (HH:mm)
+                        description: pool end time for Saturday (HH:mm)
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
             sunday:
               type: object
               properties:
@@ -142,10 +168,23 @@ put:
                     properties:
                       startTime:
                         type: string
-                        description: pool start time for sunday (HH:mm)
+                        description: pool start time for Sunday (HH:mm)
                       endTime:
                         type: string
-                        description: pool end time for sunday (HH:mm)
+                        description: pool end time for Sunday (HH:mm)
+                    required:
+                      - startTime
+                      - endTime
+              required:
+                - poolTimes
+          required:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
           example:
               monday:
                 closed: false
